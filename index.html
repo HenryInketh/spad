@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SPAD — Student Progress Diary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16233F">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F1E4;--card:#FBF8F0;--ink:#23201B;--soft:#5C574C;--line:#DCD3B8;--navy:#16233F;--gold:#C89B3C;--green:#1F6F54;--copper:#A65A2E;--red:#A6402F;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);background:var(--navy)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1727;--card:#182340;--ink:#EDE7D6;--soft:#A9B2C4;--line:#2C3A5C;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1727;--card:#182340;--ink:#EDE7D6;--soft:#A9B2C4;--line:#2C3A5C;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 'Work Sans',system-ui,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));min-height:100vh}
+header{background:var(--navy);color:#F6F1E4;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font:700 22px 'Fraunces',Georgia,serif;margin:0}
+header p{margin:0;font-size:13px;color:#BFC6D6}
+.bk{background:none;border:1px solid #5b6b8c;color:#F6F1E4;border-radius:8px;padding:7px 12px;font:inherit;font-size:14px}
+main{max-width:640px;margin:0 auto;padding:16px 16px 0}
+h2{font:600 20px 'Fraunces',Georgia,serif;margin:4px 0 12px}
+.top{display:flex;align-items:center;justify-content:space-between}
+.pri,.add{background:var(--navy);color:#fff;border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:600}
+.add{background:var(--gold);color:#23201B}
+.row{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px;margin:8px 0}
+.row>div{flex:1;min-width:0;overflow-wrap:anywhere}
+small{display:block;color:var(--soft);font-size:13px}
+.chip{font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;color:#fff;background:var(--soft);border:0;white-space:nowrap}
+.g{background:var(--green)}.y{background:var(--gold);color:#23201B}.c{background:var(--copper)}.r{background:var(--red)}
+.x{background:none;border:0;color:var(--soft);font-size:22px;line-height:1;padding:4px 6px}
+form{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;display:grid;gap:10px}
+label{display:grid;gap:4px;font-size:14px;font-weight:500}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px;width:100%}
+textarea{min-height:140px;font-size:12px}
+.empty,.note{color:var(--soft);padding:18px 4px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--navy);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;background:none;border:0;color:#BFC6D6;font:inherit;font-size:12px;padding:10px 0;border-radius:8px}
+.seg{display:flex;gap:6px;margin:0 0 12px}.seg button{flex:1;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px;font:inherit;font-weight:500}.seg button[aria-current="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+h3{font:600 15px 'Fraunces',Georgia,serif;margin:16px 0 4px;color:var(--soft)}
+nav{overflow-x:auto;scrollbar-width:none}nav button{flex:0 0 auto;padding:10px 14px}
+.seg button{font-size:13px;padding:9px 2px}
+.hb{display:flex;gap:8px}.bd{background:var(--gold);color:#23201B;border-radius:99px;padding:1px 7px;font-size:12px;font-weight:600;margin-left:4px}
+.dot{width:12px;height:12px;border-radius:50%;flex:none}
+.ck{background:none;border:0;color:var(--ink);font-size:24px;line-height:1;padding:2px 4px}
+.qt{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:12px 14px;margin:0 0 12px;text-align:center;font:italic 500 16px/1.4 'Fraunces',Georgia,serif;cursor:pointer}.qt small{font:12px 'Work Sans',system-ui,sans-serif;margin-top:4px}
+.calc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;display:grid;gap:10px}
+.pb{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px}
+.tools{display:flex;gap:8px;margin:0 0 10px}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;font-size:11px}.ni{font-size:20px;line-height:1}
+.hero{background:var(--navy);color:#F6F1E4;border-radius:14px;padding:20px;margin:0 0 14px;text-align:center}.hero h2{font-size:34px;margin:0;color:var(--gold)}.hero p{margin:2px 0 8px;font-size:14px;color:#BFC6D6}.hero b{font:italic 600 17px 'Fraunces',Georgia,serif}
+.hi{margin:0 0 12px;font-size:18px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 6px;text-align:center;font-size:12px;color:var(--soft)}.stats b{display:block;font-size:20px;color:var(--ink)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 10px;color:var(--ink);font:inherit;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:84px}.tile span{font-size:28px;line-height:1}.tile.soon{opacity:.6}.tile em{position:absolute;top:6px;right:8px;font-size:10px;font-style:normal;background:var(--gold);color:#23201B;border-radius:99px;padding:1px 7px}
+.hb .bk{padding:7px 10px;font-size:13px}
+@media print{header,nav,.tools,.add,.x,.pb,form{display:none!important}:root{padding:0}body{background:#fff!important;color:#000!important;padding:0}.row{background:#fff!important;border-color:#bbb!important;break-inside:avoid}small,.note{color:#333!important}}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 12px}.bar i{display:block;height:100%;background:var(--green)}
+nav button[aria-current="true"]{color:#23201B;background:var(--gold);font-weight:600}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SPAD">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+<header><div><h1>SPAD</h1><p>Student Progress Diary</p></div><div class="hb"><button class="bk" id="bell" data-a="tab" data-t="alerts">Alerts</button><button class="bk" data-a="tab" data-t="backup">Backup</button><button class="bk" id="trbtn" data-a="tab" data-t="trash" aria-label="Trash">🗑️</button></div></header>
+<main id="v"></main>
+<nav id="nav"></nav>
+<script>
+const K='spad.v1',$=s=>document.querySelector(s);
+const D0={subjects:[],scores:[],scheme:[],teachers:[],events:[],academic:[],extra:[],periods:[],study:[],mood:[],trash:[],me:{},ach:[],skills:[],acts:[],stuff:[],todo:[],bands:null,schools:[]};
+let S;try{S=Object.assign({},D0,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){S=Object.assign({},D0)}
+S.trash=(S.trash||[]).filter(t=>Date.now()-t.at<2592e6);
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const G=[[75,'A1','g'],[70,'B2','g'],[65,'B3','g'],[60,'C4','y'],[55,'C5','y'],[50,'C6','y'],[45,'D7','c'],[40,'E8','c'],[0,'F9','r']];
+const seed=()=>{S.bands=[[75,100,'A',1,'Excellent'],[70,74,'B',2,'Very good'],[65,69,'B',3,'Good'],[60,64,'C',4,'Credit'],[55,59,'C',5,'Credit'],[50,54,'C',6,'Credit'],[45,49,'D',7,'Pass'],[40,44,'E',8,'Pass'],[0,39,'F',9,'Fail']].map(([min,max,letter,num,remark])=>({id:uid(),min,max,letter,num:String(num),remark}))};
+if(!S.bands)seed();
+const lbl=b=>b.letter+(b.num&&b.num!=='None'?b.num:'');
+const grade=p=>{if(!S.bands)seed();const r=Math.round(p),b=S.bands.find(b=>r>=b.min&&r<=b.max);return b?[b.min,lbl(b),({A:'g',B:'g',C:'y',D:'c',E:'c',F:'r'})[b.letter]||'']:[0,'-','']};
+const pct=x=>x.max>0?x.score/x.max*100:0;
+const avg=n=>{const a=S.scores.filter(x=>x.subject===n);return a.length?a.reduce((t,x)=>t+pct(x),0)/a.length:null};
+const TYPES=['Classwork','Homework','Assignment','Project','Practical','Quiz','CA 1','CA 2','Examination','Exam correction'];
+const ST=['Pending','Covered','Complete'],STC={Pending:'',Covered:'y',Complete:'g'};
+const subj=()=>S.subjects.map(s=>s.name);
+const fmt=d=>d?new Date(d+'T00:00').toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'}):'No date';
+const SEC={
+subjects:{n:'Subjects',t:'Subjects & targets',e:'Add your subjects and set a target percentage for each one.',
+ f:[['name','Subject','text'],['target','Target (%)','number',0,70]],
+ row:s=>{const a=avg(s.name),k=a===null?null:a>=s.target?['g','On target']:a>=s.target-5?['y','Slightly below']:['r','Below target'];
+  return `<div><b>${esc(s.name)}</b><small>Target ${s.target}%${a===null?' · no scores yet':' · average '+a.toFixed(0)+'% ('+grade(a)[1]+')'}</small></div>`+(k?`<span class="chip ${k[0]}">${k[1]}</span>`:'')}},
+scores:{n:'Scores',t:'Results',e:'Add a score and SPAD works out the grade for you.',
+ s:(a,b)=>(b.date||'').localeCompare(a.date||''),
+ f:[['subject','Subject','select',subj],['type','Type','select',()=>TYPES],['score','Score','number'],['max','Out of','number',0,100],['date','Date','date',0,'today']],
+ row:x=>{const g=grade(pct(x));return `<div><b>${esc(x.subject)}</b><small>${esc(x.type)} · ${fmt(x.date)} · ${x.score}/${x.max}</small></div><span class="chip ${g[2]}">${g[1]}</span>`}},
+scheme:{n:'Scheme',t:'Scheme of work',e:'Add the topics your teachers cover. Tap a status to move it along.',
+ f:[['subject','Subject','select',subj],['topic','Topic','text'],['teacher','Teacher (optional)','text'],['resource','Resource (optional)','text']],d:{status:'Pending'},
+ row:x=>`<div><b>${esc(x.topic)}</b><small>${esc(x.subject)}${x.teacher?' · '+esc(x.teacher):''}${x.resource?' · '+esc(x.resource):''}</small></div><button class="chip ${STC[x.status]}" data-a="cyc" data-id="${x.id}">${x.status}</button>`},
+teachers:{n:'Teachers',t:'People (teachers)',e:'Keep your teachers’ details here.',
+ f:[['name','Name','text'],['subject','Subject (optional)','text'],['phone','Phone (optional)','tel'],['email','Email (optional)','email']],
+ row:x=>`<div><b>${esc(x.name)}</b><small>${[x.subject,x.phone,x.email].filter(Boolean).map(esc).join(' · ')||'No details yet'}</small></div>`},
+events:{n:'Calendar',t:'Trips & events',e:'Add holidays, exams, excursions and school events.',
+ s:(a,b)=>(a.date||'').localeCompare(b.date||''),
+ f:[['title','Event','text'],['date','Date','date',0,'today'],['kind','Kind','select',()=>['School event','Holiday','Exam','Excursion','Other']]],
+ row:x=>{const n=Math.round((new Date(x.date+'T00:00')-new Date().setHours(0,0,0,0))/864e5);
+  return `<div><b>${esc(x.title)}</b><small>${esc(x.kind)} · ${fmt(x.date)}</small></div>`+(n>=0?`<span class="chip ${n<=7?'y':''}">${n===0?'Today':n===1?'Tomorrow':'In '+n+' days'}</span>`:'')}}
+};
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const tm=x=>x.start?x.start+(x.end?'–'+x.end:''):'No time set';
+Object.assign(SEC,{
+academic:{t:'Academic timetable',e:'Add your lessons for each school day. Pick the day, the period and the subject.',days:DAYS.slice(0,5),s:(a,b)=>a.period-b.period,
+ f:[['day','Day','select',()=>DAYS.slice(0,5)],['period','Period','select',()=>S.periods.map(p=>p.n)],['subject','Subject','select',subj]],
+ row:x=>`<div><b>Period ${x.period} · ${esc(x.subject)}</b><small>${ptm(x)}</small></div>`},
+extra:{t:'Extracurricular timetable',e:'Add sports, clubs and skills you are learning, on any day of the week.',days:DAYS,s:(a,b)=>(a.start||'').localeCompare(b.start||''),
+ f:[['day','Day','select',()=>DAYS],['activity','Activity or skill','text'],['kind','Kind','select',()=>['Skill I’m learning','Sport','Club','Other']],['learning','What I’m learning (optional)','text'],['start','Starts (optional)','time'],['end','Ends (optional)','time']],
+ row:x=>`<div><b>${esc(x.activity)}</b><small>${esc(x.kind)}${x.learning?' · '+esc(x.learning):''} · ${tm(x)}</small></div>`}});
+const SD=['Planned','Done'];
+const ptm=x=>{const p=S.periods.find(p=>p.n==x.period);return p?p.start+'–'+p.end:tm(x)};
+const MOOD={Happy:'😊',Excited:'🤩',Proud:'😌',Calm:'😇',Confident:'😎',Grateful:'🙏',Hopeful:'🌤️',Motivated:'💪',Sad:'😢',Angry:'😠',Anxious:'😟',Tired:'😴',Frustrated:'😤',Lonely:'😔',Bored:'🥱',Overwhelmed:'🌀'};
+const TR=[['neatness','Neatness','laying out your uniform and books the night before'],['politeness','Politeness','greeting at least three people each morning'],['punctuality','Punctuality','setting your alarm 10 minutes earlier'],['kindness','Kindness','helping a classmate with one small thing']];
+Object.assign(SEC,{
+periods:{t:'Period times',e:'Set each period’s time once, for example Period 1 from 08:00 to 08:40. Lessons then fill in the times for you.',s:(a,b)=>a.n-b.n,
+ f:[['n','Period number','number'],['start','Starts','time'],['end','Ends','time']],
+ row:p=>`<div><b>Period ${p.n}</b><small>${p.start}–${p.end}</small></div>`},
+study:{t:'Study plan',e:'Plan your study sessions for the week. Tap a session when you finish it.',days:DAYS,s:(a,b)=>(a.start||'').localeCompare(b.start||''),d:{status:'Planned'},
+ f:[['day','Day','select',()=>DAYS,DAYS[(new Date().getDay()+6)%7]],['subject','Subject','select',subj],['goal','What will you study? (optional)','text'],['start','Starts (optional)','time'],['end','Ends (optional)','time']],
+ sum:it=>{const d=it.filter(x=>x.status==='Done').length;return `<p class="note" style="padding:0 0 8px">${d} of ${it.length} sessions done</p><div class="bar"><i style="width:${d/it.length*100}%"></i></div>`},
+ row:x=>`<div><b>${esc(x.subject)}</b><small>${x.goal?esc(x.goal)+' · ':''}${tm(x)}</small></div><button class="chip ${x.status==='Done'?'g':''}" data-a="cyc" data-k="study" data-id="${x.id}">${x.status}</button>`},
+mood:{t:'My Diary (behaviour & mood)',e:'Log how your day went. Rate yourself from 1 to 5 and pick how you feel.',s:(a,b)=>(b.date||'').localeCompare(a.date||''),
+ f:[['date','Date','date',0,'today']].concat(TR.map(t=>[t[0],t[1]+' (1–5)','select',()=>['5','4','3','2','1'],'3']),[['mood','How are you feeling?','select',()=>Object.keys(MOOD)],['note','Note (optional)','text']]),
+ row:x=>{const v=TR.map(t=>Number(x[t[0]])),a=v.reduce((p,q)=>p+q,0)/4,g=a>=4.5?['A','g']:a>=3.5?['B','y']:['C','c'],i=v.indexOf(Math.min(...v)),tip=v[i]<=2?`<small>Try ${TR[i][2]}.</small>`:'';
+  return `<div><b>${MOOD[x.mood]||''} ${esc(x.mood)}</b><small>${fmt(x.date)} · ${TR.map((t,j)=>t[1]+' '+v[j]).join(' · ')}${x.note?' · '+esc(x.note):''}</small>${tip}</div><span class="chip ${g[1]}">${g[0]}</span>`}}});
+const ld=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+function alerts(){
+ const a=[],td=ld(),dn=DAYS[(new Date().getDay()+6)%7];
+ S.subjects.forEach(s=>{const v=avg(s.name);if(v===null||v>=s.target)return;const g=s.target-v>5;a.push({c:g?'r':'y',o:g?0:1,t:s.name+(g?' is below target':' is slightly below target'),s:`Average ${v.toFixed(0)}% · target ${s.target}%`})});
+ S.events.forEach(e=>{const n=Math.round((new Date(e.date+'T00:00')-new Date().setHours(0,0,0,0))/864e5);if(n>=0&&n<=7)a.push({c:n<=1?'r':'y',o:2,t:`${e.title} ${n===0?'is today':n===1?'is tomorrow':'is in '+n+' days'}`,s:`${e.kind} · ${fmt(e.date)}`})});
+ S.todo.forEach(x=>{if(x.done||!x.due)return;const n=Math.round((new Date(x.due+'T00:00')-new Date().setHours(0,0,0,0))/864e5),r=RD[x.rem];if(n<0||(r>=0&&n<=r))a.push({c:n<=1?'r':'y',o:1,t:`${x.task} is ${n<0?'overdue':n===0?'due today':n===1?'due tomorrow':'due in '+n+' days'}`,s:jn(x.cat,x.time)})});
+ S.stuff.forEach(x=>{if(!x.ret||!/Borrowed|Lent/.test(x.status))return;const n=Math.round((new Date(x.ret+'T00:00')-new Date().setHours(0,0,0,0))/864e5),w=n<0?'(overdue)':n===0?'today':'in '+n+(n===1?' day':' days');if(n<=3)a.push({c:n<0?'r':'y',o:2,t:x.status==='Borrowed'?`Return ${x.item}${x.who?' to '+x.who:''} ${w}`:`${x.item}${x.who?' lent to '+x.who:''} is due back ${w}`,s:'Return by '+fmt(x.ret)})});
+ const L=S.academic.filter(x=>x.day===dn).sort((p,q)=>p.period-q.period);
+ if(L.length)a.push({c:'g',o:3,t:`${L.length} lesson${L.length>1?'s':''} today`,s:L.map(x=>`P${x.period} ${x.subject}`).join(', ')});
+ const P=S.study.filter(x=>x.day===dn&&x.status!=='Done');
+ if(P.length)a.push({c:'y',o:3,t:`${P.length} study session${P.length>1?'s':''} to do today`,s:P.map(x=>x.subject).join(', ')});
+ if(!S.mood.some(x=>x.date===td))a.push({c:'y',o:4,t:'Log today’s behaviour and mood',s:'It takes a minute. Open My Diary.'});
+ return a.sort((p,q)=>p.o-q.o)}
+const subs={timetable:[['academic','Academic'],['extra','Extracurricular'],['periods','Periods']],skills:[['skills','Skills'],['acts','Activities']]};
+const jn=(...a)=>a.filter(Boolean).map(esc).join(' · ');
+const PF=[['name','Full name','text'],['alias','Aliases or nickname','text'],['dob','Date of birth','date'],['gender','Gender','select',['Prefer not to say','Female','Male']],['cls','Class','text'],['lin','LIN (Learner ID)','text'],['nin','NIN (National ID)','password'],['country','Country','text','Nigeria'],['state','State of origin','text'],['rstate','Residential state','text'],['gname','Parent or guardian','text'],['gphone','Guardian phone','tel']];
+function prof(){
+ const m=S.me||{},age=m.dob?Math.floor((Date.now()-new Date(m.dob))/315576e5):-1;
+ $('#v').innerHTML='<h2>My Profile</h2>'+(m.name?`<div class="row"><div><b>${esc(m.name)}${m.alias?' ('+esc(m.alias)+')':''}</b><small>${jn(age>=0?age+' years':'',m.cls,(curSchool()||{}).name||m.school)}</small></div></div>`:'')+'<form id="pf">'+PF.map(([k,l,t,o,d])=>`<label>${l}`+(t==='select'?`<select name="${k}">${o.map(v=>`<option${m[k]===v?' selected':''}>${v}</option>`).join('')}</select>`:`<input name="${k}" type="${t}" autocomplete="off" value="${esc(m[k]!=null?m[k]:(d||''))}"${k==='name'?' required':''}>`)+'</label>').join('')+'<button class="pri">Save profile</button></form><p class="note">Your school details come from My School. Your profile stays on this device and is never included in Share, Print or PDF. A Backup does include it, so keep that text private.</p>'}
+Object.assign(SEC,{
+ach:{t:'Achievements',e:'Add awards, certificates and wins. Every achievement counts.',s:(a,b)=>(b.date||'').localeCompare(a.date||''),
+ f:[['title','Achievement','text'],['kind','Type','select',()=>['Award','Certificate','Competition','Sports','Leadership','Academic','Other']],['event','Event or competition (optional)','text'],['pos','Position or prize (optional)','text'],['cls','Class (optional)','text'],['by','Awarded by (optional)','text'],['date','Date','date',0,'today']],
+ row:x=>`<div><b>🏆 ${esc(x.title)}</b><small>${jn(x.kind,x.event,x.pos,x.cls,x.by,fmt(x.date))}</small></div>`},
+skills:{t:'Skills',e:'Add a skill you are learning or already have. Tap the star for your favourites.',s:(a,b)=>(b.fav?1:0)-(a.fav?1:0)||a.name.localeCompare(b.name),
+ f:[['name','Skill','text'],['cat','Category','select',()=>['Academic','Arts & music','Sports','Technology','Language','Craft & trade','Life skills','Other']],['level','Level','select',()=>['Beginner','Intermediate','Advanced','Pro']],['mode','How I learn it','select',()=>['Self-taught','Tutor or coach','Class or lesson','Online course','Friend or family','School club']],['tutor','Tutor or instructor (optional)','text'],['start','Started','date',0,'today'],['months','Duration in months (optional)','number'],['fav','Favourite','check']],
+ row:x=>`<div><b>${x.fav?'★ ':''}${esc(x.name)}</b><small>${jn(x.cat,x.level,x.mode,x.tutor,'Since '+fmt(x.start),x.months?x.months+' months':'')}</small></div><button class="x" aria-label="Favourite" data-a="tg" data-k="skills" data-id="${x.id}">${x.fav?'★':'☆'}</button>`},
+acts:{t:'Activities',e:'Add sports, clubs and other things you take part in.',s:(a,b)=>(b.fav?1:0)-(a.fav?1:0)||a.name.localeCompare(b.name),
+ f:[['name','Activity','text'],['kind','Type','select',()=>['Sport','Club or society','Music or art','Community service','Leadership','Other']],['role','Role or position (optional)','text'],['freq','Practice time','select',()=>['Daily','Several times a week','Weekly','Monthly','Termly','Occasionally']],['who','Instructor or coach (optional)','text'],['place','Where (optional)','text'],['start','Joined','date',0,'today'],['fav','Favourite','check']],
+ row:x=>`<div><b>${x.fav?'★ ':''}${esc(x.name)}</b><small>${jn(x.kind,x.role,x.freq,x.who,x.place,'Since '+fmt(x.start))}</small></div><button class="x" aria-label="Favourite" data-a="tg" data-k="acts" data-id="${x.id}">${x.fav?'★':'☆'}</button>`}});
+Object.assign(SEC.mood,{e:'Log how your day went. Pick a mood, write a note and rate yourself.',
+ f:[['date','Date','date',0,'today'],['mood','How are you feeling?','select',()=>Object.keys(MOOD)],['high','Highlight of the day (optional)','text'],['note','Diary note (optional)','area']].concat(TR.map(t=>[t[0],t[1]+' (1–5)','select',()=>['5','4','3','2','1'],'3']),[['next','Goal for tomorrow (optional)','text']]),
+ row:x=>{const v=TR.map(t=>Number(x[t[0]])),a=v.reduce((p,q)=>p+q,0)/4,g=a>=4.5?['A','g']:a>=3.5?['B','y']:['C','c'],i=v.indexOf(Math.min(...v)),tip=v[i]<=2?`<small>Try ${TR[i][2]}.</small>`:'';
+  return `<div><b>${MOOD[x.mood]||''} ${esc(x.mood)} · ${fmt(x.date)}</b>${x.high?`<small>✨ ${esc(x.high)}</small>`:''}${x.note?`<small>${esc(x.note)}</small>`:''}<small>${TR.map((t,n)=>t[1]+' '+v[n]).join(' · ')}</small>${x.next?`<small>Tomorrow: ${esc(x.next)}</small>`:''}${tip}</div><span class="chip ${g[1]}">${g[0]}</span>`}});
+function gcalc(){const m=+$('#gmx').value||100,s=$('#gsc').value,t=S.bands.find(b=>b.id===$('#gtg').value),o=[];
+ if(s!==''){const p=s/m*100,g=grade(p);o.push(`${s}/${m} = ${p.toFixed(1)}% = ${g[1]}.`)}
+ if(t)o.push(`For ${lbl(t)} you need at least ${Math.ceil(t.min*m/100)} out of ${m} (${t.min}%).`);
+ $('#gcr').textContent=o.join(' ')}
+Object.assign(SEC,{bands:{t:'Grade Guide',e:'Your grading scale will appear here. Add the grades your school uses.',s:(a,b)=>b.min-a.min,
+ f:[['min','From (lowest score %)','number'],['max','To (highest score %)','number',0,100],['letter','Grade letter','select',()=>['A','B','C','D','E','F']],['num','Grade number','select',()=>['None','1','2','3','4','5','6','7','8','9']],['remark','Remark (optional)','text']],
+ pre:()=>`<div class="calc" id="gc"><b>What score do I need?</b><label>Test is out of<input id="gmx" type="number" value="100" min="1"></label><label>My score (optional)<input id="gsc" type="number" step="any" min="0"></label><label>Grade I want<select id="gtg">${S.bands.slice().sort((a,b)=>b.min-a.min).map(b=>`<option value="${b.id}">${lbl(b)}</option>`).join('')}</select></label><p id="gcr" class="note" style="padding:0;font-weight:600">Pick a grade to see the score you need.</p></div><button class="pb" data-a="seed" style="margin:0 0 12px">Reset to standard A1–F9</button>`,
+ sum:it=>{const b=it.slice().sort((x,y)=>x.min-y.min),w=[];let n=0;b.forEach(x=>{if(x.min>n)w.push(`${n}${x.min-1>n?'–'+(x.min-1):''} has no grade`);else if(x.min<n)w.push(`${x.min}–${Math.min(x.max,n-1)} is in two grades`);n=Math.max(n,x.max+1)});if(n<=100)w.push(`${n}${n<100?'–100':''} has no grade`);return w.length?`<p class="note" style="padding:0 0 8px;color:var(--red)">Check your scale: ${w.join('; ')}.</p>`:'<p class="note" style="padding:0 0 8px">Your scale covers 0–100 with no gaps or overlaps.</p>'},
+ row:b=>`<div><b>${lbl(b)}</b><small>${b.min}–${b.max}%${b.remark?' · '+esc(b.remark):''}</small></div>`}});
+Object.assign(SEC,{schools:{t:'My Schools',e:'Add every school you have attended, starting with your current one. Tick the box for the school you are in now.',s:(a,b)=>(b.cur?1:0)-(a.cur?1:0)||(b.from-a.from),
+ f:[['name','School name','text'],['kind','Level','select',()=>['Nursery','Primary','Nursery & primary','Junior secondary','Senior secondary','Secondary','Other']],['cls','Class (e.g. Primary 1)','text'],['from','Year started','number'],['left','Year left (optional)','number'],['state','State','text'],['town','Town or address (optional)','text'],['cur','This is my current school','check']],
+ row:x=>`<div><b>${esc(x.name)}</b><small>${jn(x.kind,x.cls,x.from+(x.left?'–'+x.left:x.cur?'–now':''),x.state,x.town)}</small></div><button class="chip ${x.cur?'g':''}" aria-label="Current school" data-a="tg" data-k="schools" data-f="cur" data-id="${x.id}">${x.cur?'Current':'Past'}</button>`}});
+const PR={High:0,Medium:1,Low:2},RD={'1 day before':1,'On the day':0,'2 days before':2,'3 days before':3,'A week before':7,'No reminder':-1};
+Object.assign(SEC,{todo:{t:'To-Do & Reminders',e:'Add tasks and reminders. Tick one when it is done. Reminders show up under Alerts.',s:(a,b)=>(a.done?1:0)-(b.done?1:0)||(a.due||'9999').localeCompare(b.due||'9999')||PR[a.pri]-PR[b.pri],
+ f:[['task','Task or reminder','text'],['due','Due date (optional)','date'],['time','Time (optional)','time'],['pri','Priority','select',()=>['Medium','High','Low']],['cat','Category','select',()=>['Homework','Project','Exam prep','Study','Chore','Personal','Other']],['rem','Remind me','select',()=>Object.keys(RD)],['note','Note (optional)','text']],
+ sum:it=>{const o=it.filter(x=>!x.done&&x.due&&x.due<ld()).length;return `<p class="note" style="padding:0 0 8px">${it.filter(x=>!x.done).length} to do${o?' · '+o+' overdue':''} · ${it.filter(x=>x.done).length} done</p>`},
+ row:x=>{const od=!x.done&&x.due&&x.due<ld();return `<button class="ck" aria-label="Done" data-a="tg" data-k="todo" data-f="done" data-id="${x.id}">${x.done?'\u2611':'\u2610'}</button><div><b${x.done?' style="text-decoration:line-through;opacity:.6"':''}>${esc(x.task)}</b><small>${jn(x.cat,x.due?fmt(x.due):'',x.time,x.note)}</small></div><span class="chip ${x.done?'g':od?'r':({High:'c',Medium:'y',Low:''})[x.pri]}">${x.done?'Done':od?'Overdue':x.pri}</span>`}}});
+const ORD={'Lent out':0,Borrowed:1,Lost:2,Owned:3,Bought:4,'Given to me':5};
+Object.assign(SEC,{stuff:{t:'My Stuff',e:'Keep a checklist of things you own, bought, borrowed, were given or lent out. Tick what you have with you.',s:(a,b)=>ORD[a.status]-ORD[b.status]||a.item.localeCompare(b.item),
+ f:[['item','Item','text'],['kind','Category','select',()=>['Book','Uniform','Stationery','Electronics','Sports kit','Clothing','Bag or box','Other']],['status','Status','select',()=>['Owned','Bought','Borrowed','Given to me','Lent out','Lost']],['qty','How many','number',0,1],['who','From or to (optional)','text'],['date','Date','date',0,'today'],['ret','Return by (optional)','date'],['have','Have it with me','check']],
+ sum:it=>{const r=it.filter(x=>/Borrowed|Lent/.test(x.status)).length;return `<p class="note" style="padding:0 0 8px">${it.length} item${it.length>1?'s':''} · ${it.filter(x=>x.have).length} with me${r?' · '+r+' to return':''}</p>`},
+ row:x=>{const od=x.ret&&/Borrowed|Lent/.test(x.status)&&x.ret<ld();return `<button class="ck" aria-label="Have it with me" data-a="tg" data-k="stuff" data-f="have" data-id="${x.id}">${x.have?'\u2611':'\u2610'}</button><div><b>${esc(x.item)}${x.qty>1?' \u00d7'+x.qty:''}</b><small>${jn(x.kind,x.have?'With me':'',x.who,fmt(x.date),x.ret?'Return by '+fmt(x.ret):'')}</small></div><span class="chip ${od?'r':({Owned:'g',Bought:'g','Given to me':'g',Borrowed:'y','Lent out':'y',Lost:'r'})[x.status]}">${od?'Overdue':x.status}</span>`}}});
+const QUOTES=['Small steps every day beat big plans never started.','Mistakes are proof that you are trying.','Today’s effort is tomorrow’s result.','Ask questions. Curiosity is how clever people are made.','You don’t have to be perfect to make progress.','Read a little, learn a lot.','Hard work and kindness take you further than either alone.','A tidy bag and a tidy plan make a calm mind.','Every expert was once a beginner.','Don’t wait for motivation. Start, and it will follow.','Be proud of how far you have come and excited about how far you can go.','Your best competition is who you were yesterday.','Revise a little every day, not everything the night before.','A bad test result is feedback, not the final word.','Listen well, ask boldly, learn deeply.','Good habits are quietly building your future.','Education opens doors that no one can close.','One page a day becomes a library in time.','Believe you can, then show up and do the work.','Learning never stops, and that is the best part.','Respect your teachers, help your friends, trust yourself.','A calm mind remembers more.','Practice is how talent grows up.','Be on time, be kind, be curious.','Your effort today will make your future self say thank you.','Ask for help early. It is a sign of strength.','Dream big, plan small, start now.','Every question you ask makes the whole class smarter.','Discipline is choosing what matters over what is easy.','Shine where you are, grow where you go.'];
+const pick=()=>{let i;const n=QUOTES.length;do{i=Math.floor(Math.random()*n)}while(i===S.qi&&n>1);S.qi=i;save();return i};
+let QI=pick(),RT='';
+async function shareText(text,title){try{if(navigator.share){await navigator.share({title,text});return}}catch(e){if(e&&e.name==='AbortError')return}const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}t.remove();alert(ok?'Copied. Paste it into WhatsApp or a message.':'Sharing isn’t available here.')}
+function recap(){
+ const D=new Date(),k=(D.getDay()+6)%7,f=n=>{const x=new Date(D.getFullYear(),D.getMonth(),D.getDate()-k+n);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')},ws=f(0),we=f(6),inw=x=>x&&x>=ws&&x<=we;
+ const sc=S.scores.filter(x=>inw(x.date)),av=sc.length?sc.reduce((t,x)=>t+pct(x),0)/sc.length:null,by={};
+ sc.forEach(x=>{(by[x.subject]=by[x.subject]||[]).push(pct(x))});
+ const sa=Object.entries(by).map(([n,a])=>[n,a.reduce((p,q)=>p+q,0)/a.length]).sort((p,q)=>q[1]-p[1]);
+ const sd=S.study.filter(x=>x.status==='Done').length,dr=S.mood.filter(x=>inw(x.date)),mc={};
+ dr.forEach(x=>{mc[x.mood]=(mc[x.mood]||0)+1});const tm=Object.entries(mc).sort((p,q)=>q[1]-p[1])[0];
+ const tr=dr.length?TR.map(t=>[t[1],dr.reduce((s,x)=>s+Number(x[t[0]]),0)/dr.length]).sort((p,q)=>p[1]-q[1]):[];
+ const td=S.todo.filter(x=>x.done).length,to=S.todo.length-td,od=S.todo.filter(x=>!x.done&&x.due&&x.due<ld()).length,ac=S.ach.filter(x=>inw(x.date)).length;
+ const ev=S.events.filter(x=>x.date>=ld()&&x.date<=f(k+7)).sort((a,b)=>a.date.localeCompare(b.date)),rt=S.stuff.filter(x=>/Borrowed|Lent/.test(x.status)).length;
+ const lw=S.subjects.filter(s=>{const v=avg(s.name);return v!==null&&v<s.target}).map(s=>s.name),H=[];
+ if(sa.length)H.push(['g','Best subject this week: '+sa[0][0],sa[0][1].toFixed(0)+'% ('+grade(sa[0][1])[1]+')']);
+ if(lw.length)H.push(['r','Below target: '+lw.join(', '),'Overall average is under the target you set']);
+ if(tm)H.push(['y','Most common mood: '+MOOD[tm[0]]+' '+tm[0],dr.length+' diary entr'+(dr.length>1?'ies':'y')]);
+ if(tr.length&&tr[0][1]<4)H.push(['y','Habit to work on: '+tr[0][0],tr[0][1].toFixed(1)+' out of 5 on average']);
+ if(to)H.push([od?'r':'y',to+' task'+(to>1?'s':'')+' still to do',od?od+' overdue':'']);
+ if(ev.length)H.push(['y','Coming up: '+ev.slice(0,3).map(x=>x.title).join(', '),'In the next 7 days']);
+ if(rt)H.push(['y',rt+' borrowed or lent item'+(rt>1?'s':'')+' to follow up','See My Stuff']);
+ H.push(['g',lw.length?'Focus next week: '+lw[0]:tr.length&&tr[0][1]<4?'Focus next week: '+tr[0][0]:'Keep it up. You are on track.','']);
+ RT=['Weekly Recap - '+fmt(ws)+' to '+fmt(we),'Scores added: '+sc.length+(av===null?'':' (average '+av.toFixed(0)+'%)'),'Study sessions done: '+sd+' of '+S.study.length,'Tasks done: '+td+', still to do: '+to].concat(H.map(h=>'- '+h[1]+(h[2]?' ('+h[2]+')':''))).join('\n');
+ $('#v').innerHTML=`<div class="top"><h2>Weekly Recap</h2><button class="pb" data-a="rshare">Share</button></div><p class="note" style="padding:0 0 8px">${fmt(ws)} – ${fmt(we)}</p><div class="stats"><div><b>${sc.length}</b>Scores added</div><div><b>${av===null?'-':av.toFixed(0)+'%'}</b>Week average</div><div><b>${dr.length}</b>Diary entries</div></div><div class="stats"><div><b>${sd}/${S.study.length}</b>Study done</div><div><b>${td}</b>Tasks done</div><div><b>${ac}</b>Achievements</div></div><h3>Highlights</h3>`+H.map(h=>`<div class="row"><span class="dot ${h[0]}"></span><div><b>${esc(h[1])}</b>${h[2]?`<small>${esc(h[2])}</small>`:''}</div></div>`).join('')}
+const curSchool=()=>S.schools.find(s=>s.cur);
+const TAG='Plan it. Track it. Shine.';
+const MENU=[['Me',[['👤','My Profile','profile'],['📓','My Diary','mood'],['🏆','Achievements','ach'],['🌟','Skills & Activities','skills']]],['School',[['🏫','My School','schools'],['📚','Subjects','subjects'],['🗓️','Timetables','timetable','academic'],['🧭','Scheme of Work','scheme'],['👥','People','teachers']]],['Marks',[['📊','Results','scores'],['🅰️','Grade Guide','bands']]],['Plan',[['✅','To-Do & Reminders','todo'],['📖','Study Plan','study'],['🚌','Trips & Events','events'],['🧠','Weekly Recap','recap'],['🎒','My Stuff','stuff']]]];
+function home(A){
+ const h=new Date().getHours(),g=h<12?'Good morning':h<17?'Good afternoon':'Good evening',me=S.me||{},dn=DAYS[(new Date().getDay()+6)%7],L=S.academic.filter(x=>x.day===dn).length,av=S.scores.length?S.scores.reduce((t,x)=>t+pct(x),0)/S.scores.length:null;
+ $('#v').innerHTML=`<div class="hero"><h2>SPAD</h2><p>Student Performance &amp; Academic Diary</p><b>${TAG}</b></div><div class="qt" data-a="quote">“${QUOTES[QI]}”<small>Tap for another</small></div>`+(me.name?`<p class="hi">${g}, ${esc(me.name)}!${(me.cls||curSchool())?`<small>${jn(me.cls,curSchool()&&curSchool().name)}</small>`:''}</p>`:`<form id="me"><label>What’s your name?<input name="name" required></label><label>Class (optional)<input name="cls"></label><button class="pri">Start</button></form>`)+`<div class="stats"><div><b>${L}</b>Lessons today</div><div><b>${av===null?'-':av.toFixed(0)+'%'}</b>Average</div><div><b>${A.length}</b>Alerts</div></div>`+MENU.map(([t,m])=>`<h3>${t}</h3><div class="grid">`+m.map(([i,l,k,s])=>`<button class="tile${k?'':' soon'}" data-a="${k?'go':'soon'}" data-t="${k||''}" data-s="${s||''}" data-l="${esc(l)}"><span>${i}</span>${esc(l)}${k?'':'<em>Soon</em>'}</button>`).join('')+'</div>').join('')}
+let tab='home',sub='academic',open=false,soonL='';
+const dk=()=>subs[tab]?sub:tab;
+const NAV=[['home','🏠','Home'],['scores','📊','Results'],['timetable','🗓️','Timetables'],['study','📖','Study'],['mood','📓','Diary']];
+function form(c){
+ const m=c.f.find(f=>f[2]==='select'&&!f[3]().length);if(m)return `<p class="note">${m[0]==='period'?'Set your period times first, on the Periods tab.':'Add a subject first, then come back here.'}</p>`;
+ return '<form>'+c.f.map(([k,l,t,o,d])=>{
+  const dv=d==='today'?ld():d;
+  return `<label>${l}`+(t==='select'?`<select name="${k}">${o().map(v=>`<option${v==dv?' selected':''}>${esc(v)}</option>`).join('')}</select>`
+   :t==='area'?`<textarea name="${k}" rows="3"></textarea>`:t==='check'?`<input name="${k}" type="checkbox" style="width:auto">`:`<input name="${k}" type="${t}"${t==='number'?' step="any" min="0"':''}${/optional/.test(l)?'':' required'}${dv!==undefined?` value="${dv}"`:''}>`)+'</label>'}).join('')+'<button class="pri">Save</button></form>'}
+function render(){
+ $('#nav').innerHTML=NAV.map(([k,i,l])=>`<button data-a="tab" data-t="${k}"${k===tab?' aria-current="true"':''}><span class="ni">${i}</span>${l}</button>`).join('');const cur=$('#nav [aria-current]');if(cur)cur.scrollIntoView({inline:'center',block:'nearest'});
+ const A=alerts();$('#bell').innerHTML='Alerts'+(A.length?` <span class="bd">${A.length}</span>`:'');$('#trbtn').innerHTML='🗑️'+(S.trash.length?` <span class="bd">${S.trash.length}</span>`:'');
+ if(tab==='home'){home(A);return}
+ if(tab==='profile'){prof();return}
+ if(tab==='recap'){recap();return}
+ if(tab==='soon'){$('#v').innerHTML=`<h2>${esc(soonL)}</h2><p class="empty">This section is coming soon.</p><button class="pri" data-a="tab" data-t="home">Back to menu</button>`;return}
+ if(tab==='trash'){$('#v').innerHTML='<div class="top"><h2>Trash</h2>'+(S.trash.length?'<button class="pb" data-a="empty">Empty</button>':'')+'</div><p class="note" style="padding:0 0 8px">Deleted entries stay here for 30 days, then disappear for good.</p>'+(S.trash.length?S.trash.map(t=>`<div class="row"><div><b>${esc(lab(t.k,t.item))}</b><small>${esc(SEC[t.k].t)} · deleted ${new Date(t.at).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</small></div><button class="pb" data-a="rest" data-id="${t.id}">Restore</button><button class="x" aria-label="Delete forever" data-a="purge" data-id="${t.id}">×</button></div>`).join(''):'<p class="empty">Trash is empty.</p>');return}
+ if(tab==='alerts'){$('#v').innerHTML='<h2>Alerts</h2>'+(A.length?A.map(a=>`<div class="row"><span class="dot ${a.c}"></span><div><b>${esc(a.t)}</b><small>${esc(a.s)}</small></div></div>`).join(''):'<p class="empty">You’re all caught up.</p>')+'<p class="note">Alerts update whenever you open SPAD. Phone push alerts need the online version, which comes later.</p>';return}
+ if(tab==='backup'){
+  $('#v').innerHTML=`<h2>Backup</h2><p class="note">Your diary is saved on this device only. Copy this text and keep it somewhere private (notes, or an email to yourself). It includes your profile details, such as NIN, so never post it publicly. To restore, paste it back and tap Restore.</p><textarea id="bk">${esc(JSON.stringify(S))}</textarea><div class="top" style="margin-top:10px"><button class="pri" data-a="copy">Copy</button><button class="add" data-a="restore">Restore</button></div><h2>PDF</h2><p class="note">Save your whole diary as a PDF to print or share. Each section also has a PDF button at the top.</p><button class="pri" data-a="pdfall">Export whole diary</button><p class="note">To keep SPAD on your phone or computer, open this link in your browser and choose Add to Home Screen (phone) or Create shortcut (computer).</p>`;return}
+ if(subs[tab]&&!subs[tab].some(s=>s[0]===sub))sub=subs[tab][0][0];
+ const k=dk(),c=SEC[k];let it=S[k].slice();if(c.s)it.sort(c.s);
+ const seg=subs[tab]?`<div class="seg">${subs[tab].map(([v,l])=>`<button data-a="sub" data-t="${v}"${v===sub?' aria-current="true"':''}>${l}</button>`).join('')}</div>`:'';
+ const R=x=>`<div class="row">${c.row(x)}<button class="x" aria-label="Delete" data-a="del" data-id="${x.id}">×</button></div>`;
+ $('#v').innerHTML=seg+`<div class="top"><h2>${c.t}</h2><button class="add" data-a="add">${open?'Close':'Add'}</button></div><div class="tools"><button class="pb" data-a="print">Print</button><button class="pb" data-a="share">Share</button><button class="pb" data-a="pdf">PDF</button></div>`+(open?form(c):'')+(c.pre?c.pre():'')+(c.sum&&it.length?c.sum(it):'')+
+  (it.length?(c.days?c.days.map(d=>{const g=it.filter(x=>x.day===d);return g.length?`<h3>${d}</h3>`+g.map(R).join(''):''}).join(''):it.map(R).join('')):`<p class="empty">${c.e}</p>`)}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id;
+ if(a==='tab'){tab=b.dataset.t;open=false;render();scrollTo(0,0)}
+ else if(a==='sub'){sub=b.dataset.t;open=false;render()}
+ else if(a==='pdf'){pdf([dk()])}
+ else if(a==='pdfall'){pdf(ALL)}
+ else if(a==='add'){open=!open;render()}
+ else if(a==='del'){const k=dk(),x=S[k].find(x=>x.id===id);if(x){S.trash.unshift({id:uid(),k,at:Date.now(),item:x});S[k]=S[k].filter(y=>y.id!==id);save();render()}}
+ else if(a==='rest'){const t=S.trash.find(t=>t.id===id);if(t){S[t.k].push(t.item);S.trash=S.trash.filter(y=>y.id!==id);save();render()}}
+ else if(a==='purge'){if(confirm('Delete forever? This cannot be undone.')){S.trash=S.trash.filter(y=>y.id!==id);save();render()}}
+ else if(a==='empty'){if(confirm('Empty the Trash? This cannot be undone.')){S.trash=[];save();render()}}
+ else if(a==='print'){try{window.print()}catch(e){alert('Printing isn’t available here. Use the PDF button, then print the PDF.')}}
+ else if(a==='share'){share(dk())}
+ else if(a==='seed'){if(confirm('Replace your scale with the standard A1–F9 scale?')){seed();save();render()}}
+ else if(a==='go'){tab=b.dataset.t;if(b.dataset.s)sub=b.dataset.s;open=false;render();scrollTo(0,0)}
+ else if(a==='soon'){soonL=b.dataset.l;tab='soon';render();scrollTo(0,0)}
+ else if(a==='quote'){QI=pick();render()}
+ else if(a==='rshare'){shareText(RT,'Weekly Recap')}
+ else if(a==='tg'){const x=S[b.dataset.k].find(x=>x.id===id);const f=b.dataset.f||'fav';x[f]=!x[f];if(b.dataset.k==='schools'&&f==='cur'&&x.cur)S.schools.forEach(y=>{if(y!==x)y.cur=false});save();render()}
+ else if(a==='cyc'){const L=b.dataset.k||'scheme',l=L==='study'?SD:ST,x=S[L].find(x=>x.id===id);x.status=l[(l.indexOf(x.status)+1)%l.length];save();render()}
+ else if(a==='copy'){const t=$('#bk');t.select();try{navigator.clipboard.writeText(t.value)}catch(_){document.execCommand('copy')}b.textContent='Copied'}
+ else if(a==='restore'){try{const d=JSON.parse($('#bk').value);if(confirm('Replace everything on this device with this backup?')){S=Object.assign({},D0,d);if(!S.bands)seed();save();tab='subjects';render()}}catch(_){alert('That text isn’t a valid backup. Paste the full text you copied earlier.')}}
+});
+document.addEventListener('input',e=>{if(e.target.closest('#gc'))gcalc()});
+document.addEventListener('submit',e=>{
+ if(e.target.id==='pf'){e.preventDefault();const f=new FormData(e.target);S.me=S.me||{};PF.forEach(([k])=>{S.me[k]=String(f.get(k)||'').trim()});save();prof();$('#pf button').textContent='Saved ✓';return}
+ if(e.target.id==='me'){e.preventDefault();const f=new FormData(e.target);S.me={name:String(f.get('name')).trim(),cls:String(f.get('cls')||'').trim()};save();render();return}
+ e.preventDefault();const c=SEC[dk()],f=new FormData(e.target),o={id:uid()};
+ c.f.forEach(([k,,t])=>{const v=f.get(k);o[k]=t==='check'?f.get(k)==='on':t==='number'?Number(v):String(v).trim()});
+ Object.assign(o,c.d||{});if(dk()==='schools'&&o.cur)S.schools.forEach(y=>{y.cur=false});S[dk()].push(o);save();open=false;render()});
+const lab=(k,x)=>{const d=document.createElement('div');d.innerHTML=SEC[k].row(x);const b=d.querySelector('b');return b?b.textContent.trim():'Entry'};
+async function share(k){
+ const c=SEC[k],it=S[k].slice();if(!it.length){alert('Add some entries first.');return}
+ if(c.s)it.sort(c.s);const lines=[c.t+' - SPAD'];
+ const one=x=>{const d=document.createElement('div');d.innerHTML=c.row(x);const b=d.querySelector('b'),h=d.querySelector('.chip'),s=[...d.querySelectorAll('small')].map(e=>e.textContent).join(' ');lines.push('- '+(b?b.textContent.trim():'')+(h?' ['+h.textContent+']':'')+(s?' ('+s+')':''))};
+ if(c.days)c.days.forEach(day=>{const g=it.filter(x=>x.day===day);if(g.length){lines.push('',day+':');g.forEach(one)}});else it.forEach(one);
+ const text=lines.join('\n');
+ try{if(navigator.share){await navigator.share({title:c.t,text});return}}catch(e){if(e&&e.name==='AbortError')return}
+ const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}t.remove();
+ alert(ok?'Copied. Paste it into WhatsApp or a message.':'Sharing isn’t available here.')}
+const ALL=['subjects','scores','ach','skills','acts','scheme','periods','academic','extra','study','mood','teachers','events','stuff','todo','bands','schools'];
+async function pdf(keys){
+ keys=keys.filter(k=>S[k].length);if(!keys.length){alert('Add some entries first, then export.');return}
+ const dl={save:async({filename,data})=>{
+  const blob=new Blob([data],{type:'application/pdf'});
+  if(/iPad|iPhone|iPod/.test(navigator.userAgent)&&navigator.canShare){const f=new File([blob],filename,{type:'application/pdf'});if(navigator.canShare({files:[f]})){await navigator.share({files:[f],title:filename});return}}
+  const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000)}};
+ if(!window.jspdf){alert('The PDF tool didn’t load. Check your connection and try again.');return}
+ const doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'}),W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),M=48;let y=M;
+ const cl=s=>String(s).replace(/[\u2018\u2019]/g,"'").replace(/[\u2013\u2014]/g,'-').replace(/\u00b7/g,'-').replace(/[^\x20-\x7E\xA0-\xFF]/g,'').trim();
+ const put=(t,z,b,c,i)=>{i=i||0;doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(z);doc.setTextColor(...[].concat(c||0));doc.splitTextToSize(cl(t),W-2*M-i).forEach(l=>{if(y>H-M){doc.addPage();y=M}doc.text(l,M+i,y);y+=z*1.4})};
+ put('SPAD - Student Progress Diary',20,1);put('Saved '+fmt(ld()),10,0,100);y+=6;
+ keys.forEach(k=>{const c=SEC[k];let it=S[k].slice();if(c.s)it.sort(c.s);y+=12;put(c.t,15,1,[22,35,63]);
+  const one=x=>{const d=document.createElement('div');d.innerHTML=c.row(x);const b=d.querySelector('b'),h=d.querySelector('.chip');put((b?b.textContent:'')+(h?'   ['+h.textContent+']':''),11,1,0,10);const s=[...d.querySelectorAll('small')].map(e=>e.textContent).join(' ');if(s)put(s,9.5,0,90,22);y+=3};
+  if(c.days)c.days.forEach(day=>{const g=it.filter(x=>x.day===day);if(g.length){put(day,11,1,[166,90,46],4);g.forEach(one)}});else it.forEach(one)});
+ try{await dl.save({filename:'SPAD-'+(keys.length>1?'diary':keys[0])+'-'+ld()+'.pdf',data:doc.output('arraybuffer')})}catch(e){if(!e||e.code!=='declined')alert('The PDF couldn’t be saved. Try again.')}}
+render();
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
