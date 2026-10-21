@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SPAD — Student Progress Diary</title>
+<title>SPAD — Student Performance &amp; Academic Diary</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#16233F">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -42,6 +42,8 @@ nav{overflow-x:auto;scrollbar-width:none}nav button{flex:0 0 auto;padding:10px 1
 .hb{display:flex;gap:8px}.bd{background:var(--gold);color:#23201B;border-radius:99px;padding:1px 7px;font-size:12px;font-weight:600;margin-left:4px}
 .dot{width:12px;height:12px;border-radius:50%;flex:none}
 .ck{background:none;border:0;color:var(--ink);font-size:24px;line-height:1;padding:2px 4px}
+.back{position:sticky;top:8px;z-index:5;display:flex;width:max-content;align-items:center;background:var(--navy);color:#fff;border:0;border-radius:99px;padding:8px 16px;font:inherit;font-weight:600;font-size:14px;margin:0 0 12px;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.help{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:14px;margin:0 0 12px}.help p{margin:6px 0;color:var(--soft)}.help ol{margin:6px 0 12px;padding-left:20px}.help li{margin:5px 0}
 .qt{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:12px 14px;margin:0 0 12px;text-align:center;font:italic 500 16px/1.4 'Fraunces',Georgia,serif;cursor:pointer}.qt small{font:12px 'Work Sans',system-ui,sans-serif;margin-top:4px}
 .calc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0 0 12px;display:grid;gap:10px}
 .pb{background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 12px;font:inherit;font-size:14px}
@@ -53,10 +55,14 @@ nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .tile{position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 10px;color:var(--ink);font:inherit;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:84px}.tile span{font-size:28px;line-height:1}.tile.soon{opacity:.6}.tile em{position:absolute;top:6px;right:8px;font-size:10px;font-style:normal;background:var(--gold);color:#23201B;border-radius:99px;padding:1px 7px}
 .hb .bk{padding:7px 10px;font-size:13px}
-@media print{header,nav,.tools,.add,.x,.pb,form{display:none!important}:root{padding:0}body{background:#fff!important;color:#000!important;padding:0}.row{background:#fff!important;border-color:#bbb!important;break-inside:avoid}small,.note{color:#333!important}}
+@media print{header,nav,.tools,.add,.x,.pb,.back,.help,form{display:none!important}:root{padding:0}body{background:#fff!important;color:#000!important;padding:0}.row{background:#fff!important;border-color:#bbb!important;break-inside:avoid}small,.note{color:#333!important}}
 .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 12px}.bar i{display:block;height:100%;background:var(--green)}
 nav button[aria-current="true"]{color:#23201B;background:var(--gold);font-weight:600}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tp{margin:6px 6px 0 0}.tp.on{background:#16233f;color:#fff;border-color:transparent}
+#lk{position:fixed;inset:0;z-index:99;background:#16233f;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}.lkb{width:100%;max-width:320px}.lkb h2{margin:0 0 4px;font-size:30px}.lkb p{margin:6px 0}.dots{display:flex;justify-content:center;gap:14px;margin:18px 0 6px}.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #d4a64a}.dots i.on{background:#d4a64a}.lkm{min-height:22px;color:#ffb4a8}.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0}.pad button{height:62px;border-radius:50%;border:1px solid #ffffff44;background:#ffffff14;color:#fff;font-size:24px}.lkf{display:block;width:100%;background:none;border:0;color:#d4a64a;margin-top:8px;padding:8px;font-size:15px}.lkb input{width:100%;margin:8px 0;padding:10px;border-radius:8px;border:0;font-size:16px}
+.row input[data-sw]{width:100%;margin-top:4px;box-sizing:border-box}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:6px 0}.cal .h{text-align:center;font-size:11px;color:var(--soft)}.cd{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:42px;border-radius:8px;background:var(--card);border:1px solid var(--line);font-size:14px}.cd s{text-decoration:none;font-size:10px;min-height:12px;line-height:12px}.cd.tm{background:rgba(31,111,84,.2)}.cd.td{outline:2px solid var(--gold);font-weight:700}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="manifest" href="manifest.webmanifest">
@@ -67,12 +73,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
-<header><div><h1>SPAD</h1><p>Student Progress Diary</p></div><div class="hb"><button class="bk" id="bell" data-a="tab" data-t="alerts">Alerts</button><button class="bk" data-a="tab" data-t="backup">Backup</button><button class="bk" id="trbtn" data-a="tab" data-t="trash" aria-label="Trash">🗑️</button></div></header>
+<header><div><h1>SPAD</h1><p>Student Performance &amp; Academic Diary</p></div><div class="hb"><button class="bk" id="bell" data-a="tab" data-t="alerts">Alerts</button><button class="bk" data-a="tab" data-t="backup">Backup</button><button class="bk" id="trbtn" data-a="tab" data-t="trash" aria-label="Trash">🗑️</button></div></header>
 <main id="v"></main>
 <nav id="nav"></nav>
 <script>
 const K='spad.v1',$=s=>document.querySelector(s);
-const D0={subjects:[],scores:[],scheme:[],teachers:[],events:[],academic:[],extra:[],periods:[],study:[],mood:[],trash:[],me:{},ach:[],skills:[],acts:[],stuff:[],todo:[],bands:null,schools:[]};
+const D0={subjects:[],scores:[],scheme:[],teachers:[],events:[],academic:[],extra:[],periods:[],study:[],mood:[],trash:[],me:{},ach:[],skills:[],acts:[],stuff:[],todo:[],bands:null,schools:[],exams:[],lastBackup:'',hintOff:false,pin:'',pq:'',pa:'',sbook:{},terms:[]};
 let S;try{S=Object.assign({},D0,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){S=Object.assign({},D0)}
 S.trash=(S.trash||[]).filter(t=>Date.now()-t.at<2592e6);
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
@@ -139,9 +145,13 @@ const ld=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+
 function alerts(){
  const a=[],td=ld(),dn=DAYS[(new Date().getDay()+6)%7];
  S.subjects.forEach(s=>{const v=avg(s.name);if(v===null||v>=s.target)return;const g=s.target-v>5;a.push({c:g?'r':'y',o:g?0:1,t:s.name+(g?' is below target':' is slightly below target'),s:`Average ${v.toFixed(0)}% · target ${s.target}%`})});
- S.events.forEach(e=>{const n=Math.round((new Date(e.date+'T00:00')-new Date().setHours(0,0,0,0))/864e5);if(n>=0&&n<=7)a.push({c:n<=1?'r':'y',o:2,t:`${e.title} ${n===0?'is today':n===1?'is tomorrow':'is in '+n+' days'}`,s:`${e.kind} · ${fmt(e.date)}`})});
+ S.events.forEach(e=>{if(e.xid)return;const n=Math.round((new Date(e.date+'T00:00')-new Date().setHours(0,0,0,0))/864e5);if(n>=0&&n<=7)a.push({c:n<=1?'r':'y',o:2,t:`${e.title} ${n===0?'is today':n===1?'is tomorrow':'is in '+n+' days'}`,s:`${e.kind} · ${fmt(e.date)}`})});
  S.todo.forEach(x=>{if(x.done||!x.due)return;const n=Math.round((new Date(x.due+'T00:00')-new Date().setHours(0,0,0,0))/864e5),r=RD[x.rem];if(n<0||(r>=0&&n<=r))a.push({c:n<=1?'r':'y',o:1,t:`${x.task} is ${n<0?'overdue':n===0?'due today':n===1?'due tomorrow':'due in '+n+' days'}`,s:jn(x.cat,x.time)})});
  S.stuff.forEach(x=>{if(!x.ret||!/Borrowed|Lent/.test(x.status))return;const n=Math.round((new Date(x.ret+'T00:00')-new Date().setHours(0,0,0,0))/864e5),w=n<0?'(overdue)':n===0?'today':'in '+n+(n===1?' day':' days');if(n<=3)a.push({c:n<0?'r':'y',o:2,t:x.status==='Borrowed'?`Return ${x.item}${x.who?' to '+x.who:''} ${w}`:`${x.item}${x.who?' lent to '+x.who:''} is due back ${w}`,s:'Return by '+fmt(x.ret)})});
+ S.terms.forEach(x=>{const p=dys(x.start),q=dys(x.end);if(p>=0&&p<=7)a.push({c:p<=1?'r':'y',o:1,t:x.name+(p===0?' resumes today':p===1?' resumes tomorrow':' resumes in '+p+' days'),s:fmt(x.start)});if(p<=0&&q>=0&&q<=7)a.push({c:'y',o:1,t:x.name+(q===0?' ends today':' ends in '+q+' day'+(q===1?'':'s')),s:fmt(x.end)})});
+ S.teachers.forEach(x=>{if(!x.bday)return;const n=bdn(x.bday);if(n<=7)a.push({c:n===0?'g':'y',o:1,t:n===0?x.name+'’s birthday is today 🎂':x.name+'’s birthday is '+(n===1?'tomorrow':'in '+n+' days'),s:(x.role||'Teacher')+' · '+bdate(x.bday)})});
+ const bd=bkDue();if(bd)a.push({c:'y',o:1,t:'Back up your diary',s:bd});
+ S.exams.forEach(x=>{if(x.status!=='Upcoming')return;const n=dys(x.date),u=tpl(x).length-(x.rv||[]).length;if(n>=0&&n<=7)a.push({c:n<=1?'r':'y',o:1,t:`${x.subject} ${x.kind.toLowerCase()} ${n===0?'is today':n===1?'is tomorrow':'is in '+n+' days'}`,s:u>0?u+' focus topic'+(u>1?'s':'')+' not yet revised':fmt(x.date)})});
  const L=S.academic.filter(x=>x.day===dn).sort((p,q)=>p.period-q.period);
  if(L.length)a.push({c:'g',o:3,t:`${L.length} lesson${L.length>1?'s':''} today`,s:L.map(x=>`P${x.period} ${x.subject}`).join(', ')});
  const P=S.study.filter(x=>x.day===dn&&x.status!=='Done');
@@ -211,17 +221,129 @@ function recap(){
  if(tr.length&&tr[0][1]<4)H.push(['y','Habit to work on: '+tr[0][0],tr[0][1].toFixed(1)+' out of 5 on average']);
  if(to)H.push([od?'r':'y',to+' task'+(to>1?'s':'')+' still to do',od?od+' overdue':'']);
  if(ev.length)H.push(['y','Coming up: '+ev.slice(0,3).map(x=>x.title).join(', '),'In the next 7 days']);
+ const xw=S.exams.filter(x=>x.status==='Upcoming'&&x.date>=ld()&&x.date<=f(k+7)),xd=S.exams.filter(x=>x.status==='Written'&&inw(x.date));
+ if(xw.length)H.push(['y','Exams ahead: '+xw.map(x=>x.subject).join(', '),'Check your focus topics in Exam Prep']);
+ if(xd.length)H.push(['g',xd.length+' exam'+(xd.length>1?'s':'')+' written this week',xd.filter(x=>x.act!=null).map(x=>x.subject+' '+x.act+'%').join(', ')]);
  if(rt)H.push(['y',rt+' borrowed or lent item'+(rt>1?'s':'')+' to follow up','See My Stuff']);
  H.push(['g',lw.length?'Focus next week: '+lw[0]:tr.length&&tr[0][1]<4?'Focus next week: '+tr[0][0]:'Keep it up. You are on track.','']);
  RT=['Weekly Recap - '+fmt(ws)+' to '+fmt(we),'Scores added: '+sc.length+(av===null?'':' (average '+av.toFixed(0)+'%)'),'Study sessions done: '+sd+' of '+S.study.length,'Tasks done: '+td+', still to do: '+to].concat(H.map(h=>'- '+h[1]+(h[2]?' ('+h[2]+')':''))).join('\n');
  $('#v').innerHTML=`<div class="top"><h2>Weekly Recap</h2><button class="pb" data-a="rshare">Share</button></div><p class="note" style="padding:0 0 8px">${fmt(ws)} – ${fmt(we)}</p><div class="stats"><div><b>${sc.length}</b>Scores added</div><div><b>${av===null?'-':av.toFixed(0)+'%'}</b>Week average</div><div><b>${dr.length}</b>Diary entries</div></div><div class="stats"><div><b>${sd}/${S.study.length}</b>Study done</div><div><b>${td}</b>Tasks done</div><div><b>${ac}</b>Achievements</div></div><h3>Highlights</h3>`+H.map(h=>`<div class="row"><span class="dot ${h[0]}"></span><div><b>${esc(h[1])}</b>${h[2]?`<small>${esc(h[2])}</small>`:''}</div></div>`).join('')}
+const HELP={subjects:['Tap Add and type a subject, for example Mathematics.','Set a target percentage for it, such as 70.','Add all your subjects first. Other sections use this list.','Once you add scores in Results, each subject shows whether you are on target.'],
+scores:['Add your subjects first.','Tap Add, then pick the subject and the type of test.','Enter your score and what it was out of. SPAD works out the percentage and grade.','Want different grades? Change the scale in Grade Guide.'],
+scheme:['Tap Add and pick the subject.','Type the topic your teacher is covering. Add the teacher and resource if you like.','Tap the status tag to move a topic from Pending to Covered to Complete.'],
+periods:['Add each period once, for example Period 1 from 08:00 to 08:40.','Then add lessons in the Academic tab, and the times fill in by themselves.'],
+academic:['Set your period times first, in the Periods tab.','Tap Add, then choose the day, the period and the subject.','Your lessons show under each day, in order.'],
+extra:['Tap Add and choose the day.','Type the activity or skill, and what you are learning.','Add start and end times if you know them.'],
+study:['Tap Add and choose the day and the subject.','Write what you will study, for example Chapter 3 questions.','Tap a session when you finish it to mark it Done.'],
+mood:['Tap Add and pick the date and how you feel.','Write a highlight and a short note about your day.','Rate your neatness, politeness, punctuality and kindness from 1 to 5.','Set a goal for tomorrow.'],
+teachers:['Tap Add and type the name and subject.','Add a phone number or email if you have one.','You can keep friends’ details here too.'],
+events:['Tap Add and type the event, for example Mid-term test.','Pick the date and the kind: School event, Holiday, Exam or Excursion.','Events in the next 7 days appear in Alerts.'],
+ach:['Tap Add and type what you achieved.','Choose the type, then add the event, position and date.','Add each one when it happens so you never forget.'],
+skills:['Tap Add and type the skill, for example Coding or Piano.','Choose the category, your level and how you learn it.','Tap the star to mark your favourites.'],
+acts:['Tap Add and type the activity, for example Football or Drama club.','Add your role, how often you practise and your coach.','Tap the star to mark your favourites.'],
+stuff:['Tap Add and type the item, for example Maths textbook.','Choose whether you own it, bought it, borrowed it, were given it or lent it out.','For borrowed or lent things, add a return date. SPAD warns you in Alerts.','Tap the box on the left to tick what you have with you.'],
+todo:['Tap Add and type the task or reminder.','Pick a due date, a priority and when to be reminded.','Tap the box on the left when it is done.'],
+bands:['Each band has a lowest score, a highest score and a grade.','Tap Add to create a band. Results use this scale.','Use the calculator to see what score you need for a grade.'],
+exams:['Tap Add and pick the subject, the exam type and the date.','List the topics to focus on, separated by commas. Tap a topic when you have revised it.','Say when you will read and what score you think you can get.','After the exam, tap Update after exam to add how it went and your real score. It also goes into Results.','Each exam is added to Trips & Events. Three days before, a checklist of things to pack appears. Pick a day when you save to add a Study Plan session too.'],
+schools:['Tap Add and type a school you have attended.','Add the class, the years and the state.','Tick “This is my current school” for the one you are in now.']};
+function helpCard(k,c,empty){const h=HELP[k]||[];return `<div class="help"><b>${esc(c.t)}: what you can do here</b><p>${c.e}</p>`+(h.length?`<ol>${h.map(x=>`<li>${x}</li>`).join('')}</ol>`:'')+(empty&&!open?'<button class="pri" data-a="add">＋ Add your first one</button>':'')+'</div>'}
 const curSchool=()=>S.schools.find(s=>s.cur);
+const EXK=['Class test','Mid-term','Exam','Mock','WAEC','NECO','JAMB','GCE','Other'],EXS=['Upcoming','Written','Postponed','Cancelled'];
+const dys=d=>Math.round((new Date(d+'T00:00')-new Date().setHours(0,0,0,0))/864e5),tpl=x=>(x.topics||'').split(',').map(s=>s.trim()).filter(Boolean);
+const xform=x=>`<form id="xf" data-id="${x.id}"><label>Status<select name="status">${EXS.map(v=>`<option${v===x.status?' selected':''}>${v}</option>`).join('')}</select></label><label>New date (only if postponed)<input name="date" type="date"></label><label>How did it feel?<select name="felt"><option value="">-</option>${['Easy','Okay','Hard'].map(v=>`<option${v===x.felt?' selected':''}>${v}</option>`).join('')}</select></label><label>Actual score % (optional)<input name="act" type="number" step="any" min="0" value="${x.act!=null?x.act:''}"></label><label>Questions or topics I struggled with<input name="hard" value="${esc(x.hard||'')}"></label><label>Comment or lesson learned<input name="cmt" value="${esc(x.cmt||'')}"></label><button class="pri">Save update</button></form>`;
+Object.assign(SEC,{exams:{t:'Exam Prep',e:'Plan each exam: what to study, when to read and the score you expect. After the exam, add how it went.',s:(a,b)=>(a.date||'').localeCompare(b.date||''),d:{status:'Upcoming',rv:[]},
+ f:[['subject','Subject','select',subj],['kind','Exam type','select',()=>EXK],['date','Date','date',0,'today'],['time','Time (optional)','time'],['paper','Paper or venue (optional)','text'],['teacher','Subject teacher (optional)','text'],['expect','What to expect (optional)','text'],['topics','Topics to focus on, separated by commas (optional)','text'],['read','When I will read (optional)','text'],['rday','Add a Study Plan session on (optional)','select',()=>['No session'].concat(DAYS)],['rs','Study session starts (optional)','time'],['re','Study session ends (optional)','time'],['pred','Score I think I can get % (optional)','number'],['conf','Confidence (1–5)','select',()=>['5','4','3','2','1'],'3'],['note','Notes (optional)','text']],
+ sum:it=>{const up=it.filter(x=>x.status==='Upcoming'&&dys(x.date)>=0),w=it.filter(x=>x.status==='Written'),pa=w.filter(x=>x.act!=null&&x.pred>0),L=[`${up.length} upcoming · ${w.length} written · ${it.filter(x=>x.status==='Postponed').length} postponed`];
+  if(up[0]){const n=dys(up[0].date),T=tpl(up[0]);L.push(`Next: ${up[0].subject} ${n===0?'today':n===1?'tomorrow':'in '+n+' days'}`+(T.length?` · ${(up[0].rv||[]).length}/${T.length} topics revised`:''))}
+  const cl={};up.forEach(x=>{(cl[x.date]=cl[x.date]||[]).push(x.subject)});Object.entries(cl).forEach(([d,a])=>{if(a.length>1)L.push(`Clash: ${a.join(' and ')} on ${fmt(d)}`)});
+  if(pa.length){const d=pa.reduce((t,x)=>t+x.pred-x.act,0)/pa.length;L.push('Predicted vs actual: '+(Math.abs(d)<3?'you predict well':d>0?'you overestimate by '+d.toFixed(0)+' points':'you underestimate by '+(-d).toFixed(0)+' points'))}
+  const hc={};w.forEach(x=>{if(x.hard)hc[x.subject]=(hc[x.subject]||0)+1});const hw=Object.entries(hc).sort((p,q)=>q[1]-p[1])[0];if(hw)L.push('Most struggles noted in: '+hw[0]);
+  return L.map(l=>`<p class="note" style="padding:0 0 4px">${esc(l)}</p>`).join('')},
+ row:x=>{const n=dys(x.date),T=tpl(x),sb=S.subjects.find(s=>s.name===x.subject),ch=x.status==='Upcoming'?(n<0?['r','Past date']:n===0?['y','Today']:n===1?['y','Tomorrow']:['','In '+n+' days']):[({Written:'g',Postponed:'y',Cancelled:'r'})[x.status],x.status];
+  return `<div><b>${esc(x.subject)} · ${esc(x.kind)}</b><small>${jn(fmt(x.date),x.time,x.paper,x.teacher&&'Teacher: '+x.teacher)}</small>`+(x.expect?`<small>Expect: ${esc(x.expect)}</small>`:'')+(x.read?`<small>Reading: ${esc(x.read)}</small>`:'')
+  +(T.length?`<small>Focus topics, ${(x.rv||[]).length} of ${T.length} revised. Tap to tick.</small><div>${T.map((t,i)=>`<button class="pb tp${(x.rv||[]).includes(i)?' on':''}" data-a="tp" data-id="${x.id}" data-i="${i}">${esc(t)}</button>`).join('')}</div>`:'')
+  +`<small>${jn(x.pred>0?'I expect '+x.pred+'%':'',sb?'Target '+sb.target+'%':'','Confidence '+x.conf+'/5',x.act!=null?'Actual '+x.act+'%':'')}</small>`+(x.felt||x.hard||x.cmt?`<small>${jn(x.felt&&'Felt '+x.felt.toLowerCase(),x.hard&&'Struggled: '+x.hard,x.cmt)}</small>`:'')+(x.note?`<small>${esc(x.note)}</small>`:'')
+  +(x.status==='Upcoming'&&n>=0&&n<=3?`<small>Exam-day checklist, ${(x.ck||[]).length} of ${CK.length} packed. Tap to tick.</small><div>${CK.map((t,i)=>`<button class="pb tp${(x.ck||[]).includes(i)?' on':''}" data-a="ck" data-id="${x.id}" data-i="${i}">${t}</button>`).join('')}</div>`:'')+`<button class="pb tp" data-a="xu" data-id="${x.id}">Update after exam</button>${x.id===xid?xform(x):''}</div><span class="chip ${ch[0]}">${ch[1]}</span>`}}});
+const CK=['Admission slip or ID','Pens and pencils','Calculator','Geometry set','Ruler and eraser','Water and snack','Wristwatch'];
+const bkDue=()=>{const n=Object.values(S).reduce((t,v)=>t+(Array.isArray(v)?v.length:0),0),d=S.lastBackup?-dys(S.lastBackup):null;return d===null?(n>=10?'You have not backed up your diary yet.':''):d>30?'Your last backup was '+d+' days ago.':''};
+const HINT=()=>{if(S.hintOff||matchMedia('(display-mode: standalone)').matches||navigator.standalone||!/Android|iPhone|iPad|iPod/.test(navigator.userAgent))return '';return /iPhone|iPad|iPod/.test(navigator.userAgent)?'In Safari, tap the Share button, then Add to Home Screen. SPAD then opens like an app.':'In Chrome, tap the ⋮ menu, then Install app or Add to Home screen. SPAD then opens like an app.'};
+const hsh=s=>{let h=2166136261;for(const c of 'spad|'+s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return (h>>>0).toString(36)};
+let pinb='',hideAt=0;
+function lkDraw(o,msg){const me=S.me||{};o.innerHTML=`<div class="lkb"><h2>SPAD</h2><p>${me.name?'Welcome back, '+esc(me.name):'Enter your PIN'}</p><div class="dots">${[0,1,2,3].map(i=>`<i class="${i<pinb.length?'on':''}"></i>`).join('')}</div><p class="lkm">${msg||''}</p><div class="pad">${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>k===''?'<span></span>':`<button data-k="${k}">${k}</button>`).join('')}</div><button class="lkf" data-k="forgot">Forgot PIN?</button></div>`}
+function lock(){let o=$('#lk');if(!o){o=document.createElement('div');o.id='lk';document.body.appendChild(o)}pinb='';lkDraw(o)}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const o=$('#lk'),k=b.dataset.k;if(!o)return;
+ if(k==='forgot')o.innerHTML=`<div class="lkb"><h2>Forgot PIN?</h2>${S.pq?`<p>${esc(S.pq)}</p><input id="lka" autocomplete="off"><button class="pri" data-k="ans">Check answer</button>`:''}<p class="lkm"></p><button class="lkf" data-k="erase">Erase this diary</button><button class="lkf" data-k="back">Back</button></div>`;
+ else if(k==='back')lkDraw(o);
+ else if(k==='ans'){if(hsh($('#lka').value.trim().toLowerCase())===S.pa){S.pin='';S.pq='';S.pa='';save();o.remove();tab='lock';render();alert('Correct. Set a new PIN now.')}else o.querySelector('.lkm').textContent='That is not the answer.'}
+ else if(k==='erase'){if(confirm('This erases everything on this device. You can restore from a Backup. Continue?')){localStorage.removeItem('spad.v1');location.reload()}}
+ else if(k==='⌫'){pinb=pinb.slice(0,-1);lkDraw(o)}
+ else{pinb+=k;if(pinb.length===4){if(hsh(pinb)===S.pin){o.remove();pinb=''}else{pinb='';lkDraw(o,'Wrong PIN. Try again.')}}else lkDraw(o)}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hideAt=Date.now();else if(S.pin&&hideAt&&Date.now()-hideAt>6e4&&!$('#lk'))lock()});
+function secure(){const on=!!S.pin,pi='type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4"',rq=on?'':' required';$('#v').innerHTML=`<h2>PIN Lock</h2><p class="note">${on?'Your diary is locked with a 4-digit PIN. SPAD asks for it when it opens and after it has been in the background for a minute.':'Lock your diary with a 4-digit PIN so others cannot open it. This is a privacy screen lock, not strong security, so keep a Backup too.'}</p><form id="pn">${on?`<label>Current PIN<input name="cur" ${pi} required></label>`:''}<label>${on?'New PIN (leave blank to turn the lock off)':'Choose a 4-digit PIN'}<input name="p1" ${pi}${rq}></label><label>Confirm PIN<input name="p2" ${pi}${rq}></label><label>Hint question, used if you forget the PIN<input name="q" value="${esc(S.pq||'')}" placeholder="e.g. My best friend's first name"${rq}></label><label>Answer${on?' (leave blank to keep the old one)':''}<input name="a"${rq}></label><button class="pri">${on?'Save changes':'Turn on lock'}</button></form>${on?'<button class="add" data-a="lockn" style="margin-top:10px">Lock now</button>':''}`}
+if(S.pin)lock();
+const schemeDone=x=>x.done||x.status==='Complete';
+const schemeSum=it=>[...new Set(it.map(x=>x.subject))].map(s=>{const L=it.filter(x=>x.subject===s),bk=(S.sbook||{})[s]||{},d=L.filter(schemeDone).length,p=Math.round(d/L.length*100),
+ wk=Array.from({length:13},(_,i)=>{const W=L.filter(x=>+x.week===i+1),all=W.length&&W.every(schemeDone),some=W.some(schemeDone),st=all?'background:var(--green);color:#fff':some?'background:var(--gold);color:var(--navy)':W.length?'border:1px solid var(--gold);color:var(--ink)':'background:var(--line);color:var(--soft)';return `<span style="display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;border-radius:5px;font-size:11px;margin:2px 2px 0 0;${st}">${i+1}</span>`}).join('');
+ return `<div class="row" style="display:block"><b>${esc(s)}</b><small>${jn(bk.book&&'Textbook: '+bk.book,bk.teacher&&'Teacher: '+bk.teacher)||'Add the textbook and teacher when you add a topic'}</small><small>${d} of ${L.length} topics done (${p}%)</small><div style="height:6px;background:var(--line);border-radius:3px;margin:4px 0"><i style="display:block;height:100%;width:${p}%;background:var(--green);border-radius:3px"></i></div><div>${wk}</div></div>`}).join('');
+Object.assign(SEC.scheme,{e:'Plan each subject week by week, from week 1 to 13, and tick topics when they are covered.',s:(a,b)=>a.subject.localeCompare(b.subject)||(a.week||99)-(b.week||99),sum:it=>schemeSum(it),d:{status:'Pending',done:false},
+ f:[['subject','Subject','select',subj],['week','Week','select',()=>Array.from({length:13},(_,i)=>String(i+1))],['topic','Topic','text'],['book','Textbook name (optional, set once per subject)','text'],['teacher','Teacher name (optional, set once per subject)','text']],
+ row:x=>`<div><b>${esc(x.topic)}</b><small>${jn(x.subject,x.week?'Week '+x.week:'No week set',x.teacher,x.resource)}</small></div><button class="chip ${schemeDone(x)?'g':''}" data-a="sdone" data-id="${x.id}">${schemeDone(x)?'☑ Done':'☐ Tick'}</button>`});
+HELP.scheme=['Tap Add. Pick the subject, the week (1 to 13) and type the topic.','Type the textbook and teacher name the first time you add a subject. They show at the top of that subject.','Tap Tick when a topic has been covered. The 13 small boxes show your progress week by week.'];
+let swSel='';
+function swProg(){const p=$('#swp');if(!p)return;const f=S.scheme.filter(x=>x.subject===swSel&&+x.week>=1&&+x.week<=13);p.textContent=`${f.length} of 13 weeks planned · ${f.filter(schemeDone).length} done`}
+function schemeView(){
+ const c=SEC.scheme,sj=S.subjects.map(s=>s.name);
+ let h=`<div class="top"><h2>${c.t}</h2></div><div class="tools"><button class="pb" data-a="print">Print</button><button class="pb" data-a="share">Share</button><button class="pb" data-a="pdf">PDF</button><button class="pb" data-a="help">Tips</button></div>`+(help?helpCard('scheme',c,false):'');
+ if(!sj.length){$('#v').innerHTML=h+'<p class="note">Add a subject first, then come back here.</p>';return}
+ if(!sj.includes(swSel))swSel=sj[0];
+ const E=S.scheme.filter(x=>x.subject===swSel),bk=(S.sbook||{})[swSel]||{},slot=n=>E.find(x=>+x.week===n),used=Array.from({length:13},(_,i)=>slot(i+1)),oth=E.filter(x=>!used.includes(x));
+ h+=`<label>Subject<select id="swS">${sj.map(v=>`<option${v===swSel?' selected':''}>${esc(v)}</option>`).join('')}</select></label><label>Textbook name<input data-sw="book" value="${esc(bk.book||'')}"></label><label>Teacher name<input data-sw="teacher" value="${esc(bk.teacher||'')}"></label><p class="note" id="swp" style="padding:6px 0"></p>`;
+ for(let n=1;n<=13;n++){const x=slot(n),dn=x&&schemeDone(x);h+=`<div class="row"><div><small>Week ${n}</small><input data-sw="topic" data-w="${n}" placeholder="Topic for week ${n}" value="${esc(x?x.topic:'')}"></div><button class="chip ${dn?'g':''}" data-a="sdone2" data-w="${n}">${dn?'☑ Done':'☐ Tick'}</button></div>`}
+ if(oth.length)h+=`<h3>Other entries for ${esc(swSel)}</h3>`+oth.map(x=>`<div class="row">${c.row(x)}<button class="x" aria-label="Delete" data-a="del" data-id="${x.id}">×</button></div>`).join('');
+ $('#v').innerHTML=h;swProg()}
+document.addEventListener('change',e=>{const t=e.target;
+ if(t.id==='swS'){swSel=t.value;render();return}
+ const k=t.dataset&&t.dataset.sw;if(!k)return;const v=t.value.trim();
+ if(k==='book'||k==='teacher'){const b=S.sbook=S.sbook||{};b[swSel]=b[swSel]||{};b[swSel][k]=v;save();return}
+ const n=+t.dataset.w,x=S.scheme.find(y=>y.subject===swSel&&+y.week===n);
+ if(v){if(x)x.topic=v;else S.scheme.push({id:uid(),subject:swSel,week:n,topic:v,done:false,status:'Pending'})}else if(x)S.scheme=S.scheme.filter(y=>y!==x);
+ save();swProg()});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a="sdone2"]');if(!b)return;if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+ const x=S.scheme.find(y=>y.subject===swSel&&+y.week===+b.dataset.w);if(x){x.done=!schemeDone(x);x.status=x.done?'Complete':'Pending';save();render()}else alert('Type the topic for this week first.')});
+HELP.scheme=['Pick the subject at the top. Type the textbook and teacher name once for that subject.','Type one topic for each week, from week 1 to week 13. It saves when you tap away from the box.','Tap Tick when that week’s topic has been covered. Pick another subject to plan its 13 weeks.'];
+const ROLES=['Teacher','Best friend','Classmate','Student','Staff','Family','Other'];
+const bdate=d=>new Date(2000,+d.slice(5,7)-1,+d.slice(8,10)).toLocaleDateString(undefined,{day:'numeric',month:'long'});
+const bdn=d=>{const t=new Date(),m=+d.slice(5,7)-1,dd=+d.slice(8,10),z=new Date(t.getFullYear(),t.getMonth(),t.getDate());let n=new Date(t.getFullYear(),m,dd);if(n<z)n=new Date(t.getFullYear()+1,m,dd);return Math.round((n-z)/864e5)};
+S.teachers.forEach(x=>{if(!x.role)x.role='Teacher';x.day=x.role});
+Object.assign(SEC.teachers,{t:'People',e:'Add your teachers, best friends, classmates, staff and others. Save their numbers, social media and birthdays.',days:ROLES,s:(a,b)=>a.name.localeCompare(b.name),d:{},
+ f:[['role','Who are they?','select',()=>ROLES],['name','Name','text'],['subject','Subject taught, class or position (optional)','text'],['phone','Phone number (optional)','tel'],['phone2','WhatsApp or second number (optional)','tel'],['email','Email (optional)','email'],['fb','Facebook account (optional)','text'],['ig','Instagram account (optional)','text'],['tt','TikTok account (optional)','text'],['bday','Birthday (optional)','date'],['note','Notes (optional)','text']],
+ sum:it=>{const u=it.filter(x=>x.bday).map(x=>[bdn(x.bday),x]).sort((a,b)=>a[0]-b[0]).slice(0,3);return u.length?`<div class="help" style="border-style:solid"><b>🎂 Birthdays coming up</b>${u.map(([n,x])=>`<small>${esc(x.name)} · ${bdate(x.bday)} · ${n===0?'today!':n===1?'tomorrow':'in '+n+' days'}</small>`).join('')}</div>`:''},
+ row:x=>{const n=x.bday?bdn(x.bday):null;return `<div><b>${esc(x.name)}</b><small>${jn(x.role,x.subject)}</small>`+(x.phone||x.phone2?`<small>${[x.phone,x.phone2].filter(Boolean).map(p=>`<a href="tel:${esc(p)}">${esc(p)}</a>`).join(' · ')}</small>`:'')+(x.email?`<small>${esc(x.email)}</small>`:'')+(x.fb||x.ig||x.tt||x.social?`<small>${jn(x.fb&&'Facebook: '+x.fb,x.ig&&'Instagram: '+x.ig,x.tt&&'TikTok: '+x.tt,x.social)}</small>`:'')+(x.bday?`<small>🎂 ${bdate(x.bday)}</small>`:'')+(x.note?`<small>${esc(x.note)}</small>`:'')+'</div>'+(n!==null&&n<=30?`<span class="chip ${n===0?'g':'y'}">${n===0?'Today 🎂':n===1?'Tomorrow':'In '+n+' days'}</span>`:'')}});
+HELP.teachers=['Tap Add and pick who they are: teacher, best friend, classmate, student, staff, family or other.','Add their phone numbers, social media accounts and birthday if you know them.','Birthdays show on Alerts when they are within a week.'];
+let calY=new Date().getFullYear(),calM=new Date().getMonth();
+const tcur=()=>{const t=ld();return S.terms.find(x=>x.start<=t&&t<=x.end)},tnext=()=>{const t=ld();return S.terms.filter(x=>x.start>t).sort((a,b)=>a.start.localeCompare(b.start))[0]};
+const clk=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+setInterval(()=>{const e=$('#clk');if(e)e.textContent=clk()},1000);
+const termInfo=()=>{const c=tcur(),n=tnext();if(c){const e=dys(c.end),W=Math.ceil((e-dys(c.start)+1)/7);return `${c.name} · Week ${Math.floor(-dys(c.start)/7)+1} of ${W} · ${e} day${e===1?'':'s'} to the end of term`}if(n){const a=dys(n.start);return `On holiday · ${n.name} resumes in ${a} day${a===1?'':'s'} (${fmt(n.start)})`}return 'Tap Add to set your term dates.'};
+const calGrid=()=>{const first=new Date(calY,calM,1),lead=(first.getDay()+6)%7,dim=new Date(calY,calM+1,0).getDate(),t=ld(),mk={},add=(d,k)=>{if(d)(mk[d]=mk[d]||new Set()).add(k)};
+ S.events.forEach(e=>add(e.date,'e'));S.exams.forEach(e=>{if(e.status!=='Cancelled')add(e.date,'x')});S.teachers.forEach(p=>{if(p.bday&&+p.bday.slice(5,7)-1===calM)add(calY+'-'+p.bday.slice(5),'b')});
+ let c=['M','T','W','T','F','S','S'].map(d=>`<span class="h">${d}</span>`).join('')+'<i></i>'.repeat(lead);
+ for(let d=1;d<=dim;d++){const ds=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,tm=S.terms.some(x=>x.start<=ds&&ds<=x.end),k=mk[ds]||new Set(),ed=S.terms.some(x=>x.start===ds)?'▶':S.terms.some(x=>x.end===ds)?'■':'';c+=`<span class="cd${tm?' tm':''}${ds===t?' td':''}">${d}<s>${ed}${k.has('e')?'•':''}${k.has('x')?'✎':''}${k.has('b')?'🎂':''}</s></span>`}
+ return `<div class="top"><button class="pb" data-a="calm" data-d="-1">‹ Prev</button><button class="pb" data-a="calt">${first.toLocaleDateString(undefined,{month:'long',year:'numeric'})}</button><button class="pb" data-a="calm" data-d="1">Next ›</button></div><div class="cal">${c}</div><p class="note" style="padding:0 0 8px">Green = term days · ▶ resumption · ■ last day · • event · ✎ exam · 🎂 birthday. Tap the month name to jump to today.</p>`};
+SEC.terms={n:'Calendar',t:'School Calendar',e:'Set your term dates: the day school resumes and the last day of term.',s:(a,b)=>a.start.localeCompare(b.start),d:{},
+ f:[['name','Term','select',()=>['First Term','Second Term','Third Term','Other']],['start','Resumption date','date'],['end','Last day of term','date']],
+ pre:()=>`<div style="background:var(--navy);color:#fff;border-radius:14px;padding:14px;text-align:center;margin:8px 0"><b id="clk" style="font-size:34px;color:var(--gold)">${clk()}</b><p style="margin:4px 0">${new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p><p style="margin:4px 0;font-size:14px">${esc(termInfo())}</p></div>`+calGrid(),
+ row:x=>{const a=dys(x.start),e=dys(x.end),cur=a<=0&&e>=0,W=Math.ceil((e-a+1)/7),st=cur?['g','Now']:a>0?['y','In '+a+' days']:['','Ended'];return `<div><b>${esc(x.name)}</b><small>Resumes ${fmt(x.start)} · Ends ${fmt(x.end)}</small><small>${cur?`Week ${Math.floor(-a/7)+1} of ${W} · ${e} day${e===1?'':'s'} left`:a>0?W+' weeks long':'Finished'}</small></div><span class="chip ${st[0]}">${st[1]}</span>`}};
+HELP.terms=['Tap Add. Pick the term, then set the resumption date and the last day of term.','The calendar shows each month. Green days are term days, ▶ is resumption and ■ is the last day.','Events, exams and birthdays you saved also show on the calendar.'];
+const VER='1.8',EM='Henryafekhiku@gmail.com';
+function info(){$('#v').innerHTML=`<h2>Information</h2><div class="hero" style="margin-bottom:12px"><h2>SPAD</h2><p>Student Performance &amp; Academic Diary</p><b>${TAG}</b></div><div class="row" style="display:block"><b>About SPAD</b><small>SPAD helps you plan your lessons, record your scores, build good habits and look back on your progress, all in one diary on your phone. Your entries stay on your device.</small></div><div class="row" style="display:block"><b>About the creator</b><small>SPAD is built by Henry Afekhiku Inketh of EDG ACADEMICS, who designs simple digital tools for students and schools in Nigeria.</small></div><h3>Install on your phone</h3><p class="note">Android (Chrome): tap the ⋮ menu, then Install app or Add to Home screen. iPhone (Safari): tap Share, then Add to Home Screen.</p><h3>Keep your diary safe</h3><p class="note">Your diary is saved on this phone only. Tap Backup at the top of the home page about once a month, and keep the copied text somewhere private.</p><h3>Send feedback</h3><form id="fb"><label>Type<select name="k"><option>Suggestion</option><option>Problem</option><option>Request</option></select></label><label>Your message<textarea name="m" rows="4" required></textarea></label><button class="pri">Send by email</button></form><p class="note">This opens your email app with a message ready to send to ${EM}. No email app? Tap Copy.</p><button class="pb" data-a="fbcopy">Copy my message</button><p class="note">SPAD version ${VER} · EDG ACADEMICS</p>`}
+function render(){render0();if(tab!=='home')$('#v').insertAdjacentHTML('afterbegin','<button class="back" data-a="tab" data-t="home">← Menu</button>')}
 const TAG='Plan it. Track it. Shine.';
-const MENU=[['Me',[['👤','My Profile','profile'],['📓','My Diary','mood'],['🏆','Achievements','ach'],['🌟','Skills & Activities','skills']]],['School',[['🏫','My School','schools'],['📚','Subjects','subjects'],['🗓️','Timetables','timetable','academic'],['🧭','Scheme of Work','scheme'],['👥','People','teachers']]],['Marks',[['📊','Results','scores'],['🅰️','Grade Guide','bands']]],['Plan',[['✅','To-Do & Reminders','todo'],['📖','Study Plan','study'],['🚌','Trips & Events','events'],['🧠','Weekly Recap','recap'],['🎒','My Stuff','stuff']]]];
+const MENU=[['Me',[['👤','My Profile','profile'],['📓','My Diary','mood'],['🏆','Achievements','ach'],['🌟','Skills & Activities','skills']]],['School',[['🏫','My School','schools'],['📅','School Calendar','terms'],['📚','Subjects','subjects'],['🗓️','Timetables','timetable','academic'],['🧭','Scheme of Work','scheme'],['👥','People','teachers']]],['Marks',[['📊','Results','scores'],['🅰️','Grade Guide','bands']]],['Plan',[['✅','To-Do & Reminders','todo'],['📖','Study Plan','study'],['📝','Exam Prep','exams'],['🚌','Trips & Events','events'],['🧠','Weekly Recap','recap'],['🎒','My Stuff','stuff']]],['About',[['ℹ️','Information','info'],['🔒','PIN Lock','lock']]]];
 function home(A){
  const h=new Date().getHours(),g=h<12?'Good morning':h<17?'Good afternoon':'Good evening',me=S.me||{},dn=DAYS[(new Date().getDay()+6)%7],L=S.academic.filter(x=>x.day===dn).length,av=S.scores.length?S.scores.reduce((t,x)=>t+pct(x),0)/S.scores.length:null;
- $('#v').innerHTML=`<div class="hero"><h2>SPAD</h2><p>Student Performance &amp; Academic Diary</p><b>${TAG}</b></div><div class="qt" data-a="quote">“${QUOTES[QI]}”<small>Tap for another</small></div>`+(me.name?`<p class="hi">${g}, ${esc(me.name)}!${(me.cls||curSchool())?`<small>${jn(me.cls,curSchool()&&curSchool().name)}</small>`:''}</p>`:`<form id="me"><label>What’s your name?<input name="name" required></label><label>Class (optional)<input name="cls"></label><button class="pri">Start</button></form>`)+`<div class="stats"><div><b>${L}</b>Lessons today</div><div><b>${av===null?'-':av.toFixed(0)+'%'}</b>Average</div><div><b>${A.length}</b>Alerts</div></div>`+MENU.map(([t,m])=>`<h3>${t}</h3><div class="grid">`+m.map(([i,l,k,s])=>`<button class="tile${k?'':' soon'}" data-a="${k?'go':'soon'}" data-t="${k||''}" data-s="${s||''}" data-l="${esc(l)}"><span>${i}</span>${esc(l)}${k?'':'<em>Soon</em>'}</button>`).join('')+'</div>').join('')}
-let tab='home',sub='academic',open=false,soonL='';
+ $('#v').innerHTML=`<div class="hero"><h2>SPAD</h2><p>Student Performance &amp; Academic Diary</p><b>${TAG}</b></div><div class="qt" data-a="quote">“${QUOTES[QI]}”<small>Tap for another</small></div>`+(me.name?`<p class="hi">${g}, ${esc(me.name)}!${(me.cls||curSchool())?`<small>${jn(me.cls,curSchool()&&curSchool().name)}</small>`:''}</p>`:`<form id="me"><label>What’s your name?<input name="name" required></label><label>Class (optional)<input name="cls"></label><button class="pri">Start</button></form>`)+`<div class="stats"><div><b>${L}</b>Lessons today</div><div><b>${av===null?'-':av.toFixed(0)+'%'}</b>Average</div><div><b>${A.length}</b>Alerts</div></div>`+(bkDue()?`<div class="help"><b>💾 Back up your diary</b><small>${bkDue()} Your diary lives only on this phone, so a backup keeps it safe.</small><button class="pb" data-a="tab" data-t="backup">Back up now</button></div>`:'')+(HINT()?`<div class="help"><b>📲 Put SPAD on your home screen</b><small>${HINT()}</small><button class="pb" data-a="hintoff">Got it</button></div>`:'')+MENU.map(([t,m])=>`<h3>${t}</h3><div class="grid">`+m.map(([i,l,k,s])=>`<button class="tile${k?'':' soon'}" data-a="${k?'go':'soon'}" data-t="${k||''}" data-s="${s||''}" data-l="${esc(l)}"><span>${i}</span>${esc(l)}${k?'':'<em>Soon</em>'}</button>`).join('')+'</div>').join('')}
+let tab='home',sub='academic',open=false,soonL='',help=false,xid=null;
 const dk=()=>subs[tab]?sub:tab;
 const NAV=[['home','🏠','Home'],['scores','📊','Results'],['timetable','🗓️','Timetables'],['study','📖','Study'],['mood','📓','Diary']];
 function form(c){
@@ -230,12 +352,15 @@ function form(c){
   const dv=d==='today'?ld():d;
   return `<label>${l}`+(t==='select'?`<select name="${k}">${o().map(v=>`<option${v==dv?' selected':''}>${esc(v)}</option>`).join('')}</select>`
    :t==='area'?`<textarea name="${k}" rows="3"></textarea>`:t==='check'?`<input name="${k}" type="checkbox" style="width:auto">`:`<input name="${k}" type="${t}"${t==='number'?' step="any" min="0"':''}${/optional/.test(l)?'':' required'}${dv!==undefined?` value="${dv}"`:''}>`)+'</label>'}).join('')+'<button class="pri">Save</button></form>'}
-function render(){
+function render0(){
  $('#nav').innerHTML=NAV.map(([k,i,l])=>`<button data-a="tab" data-t="${k}"${k===tab?' aria-current="true"':''}><span class="ni">${i}</span>${l}</button>`).join('');const cur=$('#nav [aria-current]');if(cur)cur.scrollIntoView({inline:'center',block:'nearest'});
  const A=alerts();$('#bell').innerHTML='Alerts'+(A.length?` <span class="bd">${A.length}</span>`:'');$('#trbtn').innerHTML='🗑️'+(S.trash.length?` <span class="bd">${S.trash.length}</span>`:'');
  if(tab==='home'){home(A);return}
  if(tab==='profile'){prof();return}
  if(tab==='recap'){recap();return}
+ if(tab==='info'){info();return}
+ if(tab==='lock'){secure();return}
+ if(tab==='scheme'){schemeView();return}
  if(tab==='soon'){$('#v').innerHTML=`<h2>${esc(soonL)}</h2><p class="empty">This section is coming soon.</p><button class="pri" data-a="tab" data-t="home">Back to menu</button>`;return}
  if(tab==='trash'){$('#v').innerHTML='<div class="top"><h2>Trash</h2>'+(S.trash.length?'<button class="pb" data-a="empty">Empty</button>':'')+'</div><p class="note" style="padding:0 0 8px">Deleted entries stay here for 30 days, then disappear for good.</p>'+(S.trash.length?S.trash.map(t=>`<div class="row"><div><b>${esc(lab(t.k,t.item))}</b><small>${esc(SEC[t.k].t)} · deleted ${new Date(t.at).toLocaleDateString(undefined,{day:'numeric',month:'short'})}</small></div><button class="pb" data-a="rest" data-id="${t.id}">Restore</button><button class="x" aria-label="Delete forever" data-a="purge" data-id="${t.id}">×</button></div>`).join(''):'<p class="empty">Trash is empty.</p>');return}
  if(tab==='alerts'){$('#v').innerHTML='<h2>Alerts</h2>'+(A.length?A.map(a=>`<div class="row"><span class="dot ${a.c}"></span><div><b>${esc(a.t)}</b><small>${esc(a.s)}</small></div></div>`).join(''):'<p class="empty">You’re all caught up.</p>')+'<p class="note">Alerts update whenever you open SPAD. Phone push alerts need the online version, which comes later.</p>';return}
@@ -245,12 +370,12 @@ function render(){
  const k=dk(),c=SEC[k];let it=S[k].slice();if(c.s)it.sort(c.s);
  const seg=subs[tab]?`<div class="seg">${subs[tab].map(([v,l])=>`<button data-a="sub" data-t="${v}"${v===sub?' aria-current="true"':''}>${l}</button>`).join('')}</div>`:'';
  const R=x=>`<div class="row">${c.row(x)}<button class="x" aria-label="Delete" data-a="del" data-id="${x.id}">×</button></div>`;
- $('#v').innerHTML=seg+`<div class="top"><h2>${c.t}</h2><button class="add" data-a="add">${open?'Close':'Add'}</button></div><div class="tools"><button class="pb" data-a="print">Print</button><button class="pb" data-a="share">Share</button><button class="pb" data-a="pdf">PDF</button></div>`+(open?form(c):'')+(c.pre?c.pre():'')+(c.sum&&it.length?c.sum(it):'')+
-  (it.length?(c.days?c.days.map(d=>{const g=it.filter(x=>x.day===d);return g.length?`<h3>${d}</h3>`+g.map(R).join(''):''}).join(''):it.map(R).join('')):`<p class="empty">${c.e}</p>`)}
+ $('#v').innerHTML=seg+`<div class="top"><h2>${c.t}</h2><button class="add" data-a="add">${open?'Close':'Add'}</button></div><div class="tools"><button class="pb" data-a="print">Print</button><button class="pb" data-a="share">Share</button><button class="pb" data-a="pdf">PDF</button><button class="pb" data-a="help">Tips</button></div>`+(open?form(c):'')+(c.pre?c.pre():'')+(c.sum&&it.length?c.sum(it):'')+(help&&it.length?helpCard(k,c,false):'')+
+  (it.length?(c.days?c.days.map(d=>{const g=it.filter(x=>x.day===d);return g.length?`<h3>${d}</h3>`+g.map(R).join(''):''}).join(''):it.map(R).join('')):`${helpCard(k,c,true)}`)}
 document.addEventListener('click',e=>{
  const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,id=b.dataset.id;
- if(a==='tab'){tab=b.dataset.t;open=false;render();scrollTo(0,0)}
- else if(a==='sub'){sub=b.dataset.t;open=false;render()}
+ if(a==='tab'){tab=b.dataset.t;open=help=false;render();scrollTo(0,0)}
+ else if(a==='sub'){sub=b.dataset.t;open=help=false;render()}
  else if(a==='pdf'){pdf([dk()])}
  else if(a==='pdfall'){pdf(ALL)}
  else if(a==='add'){open=!open;render()}
@@ -261,22 +386,46 @@ document.addEventListener('click',e=>{
  else if(a==='print'){try{window.print()}catch(e){alert('Printing isn’t available here. Use the PDF button, then print the PDF.')}}
  else if(a==='share'){share(dk())}
  else if(a==='seed'){if(confirm('Replace your scale with the standard A1–F9 scale?')){seed();save();render()}}
- else if(a==='go'){tab=b.dataset.t;if(b.dataset.s)sub=b.dataset.s;open=false;render();scrollTo(0,0)}
+ else if(a==='go'){tab=b.dataset.t;if(b.dataset.s)sub=b.dataset.s;open=help=false;render();scrollTo(0,0)}
  else if(a==='soon'){soonL=b.dataset.l;tab='soon';render();scrollTo(0,0)}
  else if(a==='quote'){QI=pick();render()}
+ else if(a==='tp'){const x=S.exams.find(x=>x.id===id),i=+b.dataset.i,r=x.rv||[];x.rv=r.includes(i)?r.filter(j=>j!==i):r.concat(i);save();render()}
+ else if(a==='xu'){xid=xid===id?null:id;render()}
+ else if(a==='ck'){const x=S.exams.find(x=>x.id===id),i=+b.dataset.i,r=x.ck||[];x.ck=r.includes(i)?r.filter(j=>j!==i):r.concat(i);save();render()}
+ else if(a==='hintoff'){S.hintOff=true;save();render()}
+ else if(a==='lockn'){lock()}
+ else if(a==='calm'){calM+=+b.dataset.d;if(calM<0){calM=11;calY--}else if(calM>11){calM=0;calY++}render()}
+ else if(a==='calt'){calY=new Date().getFullYear();calM=new Date().getMonth();render()}
+ else if(a==='sdone'){const x=S.scheme.find(x=>x.id===id);x.done=!(x.done||x.status==='Complete');x.status=x.done?'Complete':'Pending';save();render()}
+ else if(a==='fbcopy'){const t=$('#fb textarea');t.select();try{navigator.clipboard.writeText(t.value)}catch(_){document.execCommand('copy')}b.textContent='Copied'}
+ else if(a==='help'){help=!help;render()}
  else if(a==='rshare'){shareText(RT,'Weekly Recap')}
  else if(a==='tg'){const x=S[b.dataset.k].find(x=>x.id===id);const f=b.dataset.f||'fav';x[f]=!x[f];if(b.dataset.k==='schools'&&f==='cur'&&x.cur)S.schools.forEach(y=>{if(y!==x)y.cur=false});save();render()}
  else if(a==='cyc'){const L=b.dataset.k||'scheme',l=L==='study'?SD:ST,x=S[L].find(x=>x.id===id);x.status=l[(l.indexOf(x.status)+1)%l.length];save();render()}
- else if(a==='copy'){const t=$('#bk');t.select();try{navigator.clipboard.writeText(t.value)}catch(_){document.execCommand('copy')}b.textContent='Copied'}
- else if(a==='restore'){try{const d=JSON.parse($('#bk').value);if(confirm('Replace everything on this device with this backup?')){S=Object.assign({},D0,d);if(!S.bands)seed();save();tab='subjects';render()}}catch(_){alert('That text isn’t a valid backup. Paste the full text you copied earlier.')}}
+ else if(a==='copy'){S.lastBackup=ld();save();const t=$('#bk');t.select();try{navigator.clipboard.writeText(t.value)}catch(_){document.execCommand('copy')}b.textContent='Copied'}
+ else if(a==='restore'){try{const d=JSON.parse($('#bk').value);if(confirm('Replace everything on this device with this backup?')){S=Object.assign({},D0,d);S.lastBackup=ld();S.pin='';S.pq='';S.pa='';if(!S.bands)seed();save();tab='subjects';render()}}catch(_){alert('That text isn’t a valid backup. Paste the full text you copied earlier.')}}
 });
 document.addEventListener('input',e=>{if(e.target.closest('#gc'))gcalc()});
 document.addEventListener('submit',e=>{
+ if(e.target.id==='pn'){e.preventDefault();const f=new FormData(e.target),g=k=>String(f.get(k)||'').trim();if(S.pin&&hsh(g('cur'))!==S.pin){alert('Current PIN is wrong.');return}
+  if(!g('p1')){if(S.pin){S.pin='';S.pq='';S.pa='';save();alert('Lock turned off.');render()}return}
+  if(g('p1')!==g('p2')){alert('The two PINs do not match.');return}
+  S.pin=hsh(g('p1'));S.pq=g('q');if(g('a')||!S.pa)S.pa=hsh(g('a').toLowerCase());save();alert('Lock is on. Remember your PIN and keep a Backup.');render();return}
+ if(e.target.id==='fb'){e.preventDefault();const f=new FormData(e.target);location.href='mailto:'+EM+'?subject='+encodeURIComponent('SPAD '+f.get('k'))+'&body='+encodeURIComponent(String(f.get('m')).trim()+'\n\nSPAD version '+VER);return}
+ if(e.target.id==='xf'){e.preventDefault();const f=new FormData(e.target),x=S.exams.find(y=>y.id===e.target.dataset.id);x.status=f.get('status');if(f.get('date'))x.date=f.get('date');x.felt=f.get('felt');x.hard=String(f.get('hard')).trim();x.cmt=String(f.get('cmt')).trim();const v=f.get('act');x.act=v===''?null:Number(v);
+  if(x.act!=null){const r={subject:x.subject,type:x.kind==='Class test'?'Quiz':'Examination',score:x.act,max:100,date:x.date},p=S.scores.find(s=>s.id===x.sid);if(p)Object.assign(p,r);else{r.id=uid();x.sid=r.id;S.scores.push(r)}}
+  const ev=S.events.find(e=>e.xid===x.id);if(x.status==='Cancelled')S.events=S.events.filter(e=>e!==ev);else if(ev)ev.date=x.date;else S.events.push({id:uid(),title:x.subject+' '+x.kind,date:x.date,kind:'Exam',xid:x.id});
+  xid=null;save();render();return}
  if(e.target.id==='pf'){e.preventDefault();const f=new FormData(e.target);S.me=S.me||{};PF.forEach(([k])=>{S.me[k]=String(f.get(k)||'').trim()});save();prof();$('#pf button').textContent='Saved ✓';return}
  if(e.target.id==='me'){e.preventDefault();const f=new FormData(e.target);S.me={name:String(f.get('name')).trim(),cls:String(f.get('cls')||'').trim()};save();render();return}
  e.preventDefault();const c=SEC[dk()],f=new FormData(e.target),o={id:uid()};
  c.f.forEach(([k,,t])=>{const v=f.get(k);o[k]=t==='check'?f.get(k)==='on':t==='number'?Number(v):String(v).trim()});
- Object.assign(o,c.d||{});if(dk()==='schools'&&o.cur)S.schools.forEach(y=>{y.cur=false});S[dk()].push(o);save();open=false;render()});
+ Object.assign(o,c.d||{});if(dk()==='schools'&&o.cur)S.schools.forEach(y=>{y.cur=false});S[dk()].push(o);
+ if(dk()==='terms'&&o.end<o.start){const z=o.start;o.start=o.end;o.end=z}
+ if(dk()==='teachers')o.day=o.role;
+ if(dk()==='scheme'){o.week=+o.week;const b=S.sbook=S.sbook||{};b[o.subject]=b[o.subject]||{};if(o.book)b[o.subject].book=o.book;if(o.teacher)b[o.subject].teacher=o.teacher;delete o.book;delete o.teacher}
+ if(dk()==='exams'){if(DAYS.includes(o.rday))S.study.push({id:uid(),day:o.rday,subject:o.subject,goal:'Prepare for '+o.kind+(o.topics?': '+o.topics:''),start:o.rs,end:o.re,status:'Planned'});S.events.push({id:uid(),title:o.subject+' '+o.kind,date:o.date,kind:'Exam',xid:o.id})}
+ save();open=false;render()});
 const lab=(k,x)=>{const d=document.createElement('div');d.innerHTML=SEC[k].row(x);const b=d.querySelector('b');return b?b.textContent.trim():'Entry'};
 async function share(k){
  const c=SEC[k],it=S[k].slice();if(!it.length){alert('Add some entries first.');return}
@@ -287,7 +436,7 @@ async function share(k){
  try{if(navigator.share){await navigator.share({title:c.t,text});return}}catch(e){if(e&&e.name==='AbortError')return}
  const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy')}catch(_){}t.remove();
  alert(ok?'Copied. Paste it into WhatsApp or a message.':'Sharing isn’t available here.')}
-const ALL=['subjects','scores','ach','skills','acts','scheme','periods','academic','extra','study','mood','teachers','events','stuff','todo','bands','schools'];
+const ALL=['subjects','terms','exams','scores','ach','skills','acts','scheme','periods','academic','extra','study','mood','teachers','events','stuff','todo','bands','schools'];
 async function pdf(keys){
  keys=keys.filter(k=>S[k].length);if(!keys.length){alert('Add some entries first, then export.');return}
  const dl={save:async({filename,data})=>{
@@ -298,7 +447,7 @@ async function pdf(keys){
  const doc=new window.jspdf.jsPDF({unit:'pt',format:'a4'}),W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight(),M=48;let y=M;
  const cl=s=>String(s).replace(/[\u2018\u2019]/g,"'").replace(/[\u2013\u2014]/g,'-').replace(/\u00b7/g,'-').replace(/[^\x20-\x7E\xA0-\xFF]/g,'').trim();
  const put=(t,z,b,c,i)=>{i=i||0;doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(z);doc.setTextColor(...[].concat(c||0));doc.splitTextToSize(cl(t),W-2*M-i).forEach(l=>{if(y>H-M){doc.addPage();y=M}doc.text(l,M+i,y);y+=z*1.4})};
- put('SPAD - Student Progress Diary',20,1);put('Saved '+fmt(ld()),10,0,100);y+=6;
+ put('SPAD - Student Performance & Academic Diary',20,1);put('Saved '+fmt(ld()),10,0,100);y+=6;
  keys.forEach(k=>{const c=SEC[k];let it=S[k].slice();if(c.s)it.sort(c.s);y+=12;put(c.t,15,1,[22,35,63]);
   const one=x=>{const d=document.createElement('div');d.innerHTML=c.row(x);const b=d.querySelector('b'),h=d.querySelector('.chip');put((b?b.textContent:'')+(h?'   ['+h.textContent+']':''),11,1,0,10);const s=[...d.querySelectorAll('small')].map(e=>e.textContent).join(' ');if(s)put(s,9.5,0,90,22);y+=3};
   if(c.days)c.days.forEach(day=>{const g=it.filter(x=>x.day===day);if(g.length){put(day,11,1,[166,90,46],4);g.forEach(one)}});else it.forEach(one)});
